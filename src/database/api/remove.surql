@@ -1,0 +1,4 @@
+REMOVE FUNCTION IF EXISTS fn::getPageOther;
+REMOVE FUNCTION IF EXISTS fn::getPageHome;
+REMOVE FUNCTION IF EXISTS fn::getPage;
+REMOVE API IF EXISTS "/page/:route/:language";
