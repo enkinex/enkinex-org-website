@@ -12,7 +12,7 @@ import { useDisclosure } from "@mantine/hooks"
 import classes from "./Landing.module.css"
 
 import type { Navbar } from "@/model/navbar"
-import { Logo } from "#/components/assets/Logo"
+import { Logo } from "@/components/brand/Logo"
 
 interface NavbarProps {
   navbar: Navbar
@@ -38,10 +38,7 @@ export function LandingNavbar({ navbar }: NavbarProps) {
       <header className={classes.header}>
         <Container size="xl" py={16}>
           <Group justify="space-between" h="100%">
-            <Group visibleFrom="sm">
-              <Logo size={36} />
-              <div>Enkinex</div>
-            </Group>
+            <Logo iconSize={36} showTagline={false} mark="wedge" />
 
             <Group h="100%" gap={0} visibleFrom="sm">
               {items}
