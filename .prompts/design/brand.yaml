@@ -1,0 +1,158 @@
+task: Create a brand logo analysis to identify the best visual identity according to the `specs`
+specs:
+  name: Enkinex
+  company:
+    legalName: Enkinex Data Ltda
+    domain: enkinex.com
+    about:
+      - Enkinex is a Brazilian consulting company that designs, builds, and implements custom modern data and AI platforms
+      - We help organizations transform raw data into structured intelligence, enabling better decision-making through data governance, analytics, and artificial intelligence solutions
+    services:
+      - Custom Data Platform Development -> End-to-end architecture, engineering, and deployment of modern data platforms tailored to each organization's needs
+      - AI & Machine Learning Solutions -> Design and implementation of AI-powered tools for prediction, automation, natural language processing, and intelligent decision support
+      - Data Governance & Strategy -> Frameworks for data quality, compliance, security, and organizational data maturity
+      - Consulting & Advisory -> Strategic guidance for digital transformation, data-driven culture, and technology modernization
+    target:
+      - Private -> Mid-to-large private enterprises across industries requiring sophisticated data platforms and governance frameworks
+      - Public -> Government entities and public sector organizations in Brazil seeking to modernize their data infrastructure and adopt AI
+  brand:
+    etymology:
+      name: The name `Enkinex` is a compound of two meaningful roots;
+      ENKI: The Sumerian god of wisdom, knowledge, water, creation, and intelligence. In Sumerian mythology, Enki was the deity who organized the world through knowledge — he assigned roles, structured information, and brought order to chaos. He is considered the architect of civilization.
+      NEX: Derived from three interconnected concepts; `Nexus` (a connection point, a hub where things converge); `Next` (forward-looking, innovative, what comes after), and the original vision of the company, which aimed to serve governance as a core feature.
+      meaning: Together, `Enkinex` means `ancient wisdom applied to the next frontier of data and intelligence`.
+    sumerian:
+      choice: The choice of Sumerian mythology is not arbitrary. The Sumerian civilization (c. 4500–1900 BCE, in modern-day Iraq) is directly relevant to what Enkinex does
+      cuneiform: `Cuneiform Writing`; The Sumerians invented the first writing system — cuneiform — which was humanity's first data technology. They pressed wedge-shaped marks into clay tablets to record information, creating the earliest structured data.
+      governance: `City-States & Governance`; The Sumerians invented the concept of the city-state, pioneering governance, administrative records, census data, tax systems, and public administration — all of which are among the sectors Enkinex serves.
+      deity: `Enki as Architect`; Enki did not simply possess wisdom — he applied it to organize the world. This mirrors Enkinex's approach; we do not just consult, we build.
+    storytelling: |
+      Five thousand years ago, the Sumerians invented writing, built the first cities, and organized the world through
+      knowledge. Their god of wisdom, Enki, was the architect of it all — turning chaos into structure, raw information into
+      actionable understanding. Enkinex carries that spirit forward. We build the platforms that transform your organization's
+      data into wisdom — structured, governed, and ready to power decisions. From the civilization that invented data to the
+      platforms that master it.
+    phonetic: |
+      Enkinex `en-ki-nex` shares a subtle phonetic similarity with NGINX `en-gi-nex`, one of the most recognized names in
+      technology infrastructure. This creates unconscious sonic familiarity — the name instinctively "sounds like technology"
+      to decision-makers without any visual or semantic confusion. The spelling, meaning, and market positioning are entirely
+      distinct.
+    archetype: |
+      The Sage-Builder
+      Enkinex combines the wisdom of the **Sage** archetype (knowledge, insight, strategic thinking) with the hands-on
+      capability of the **Builder** (we create, engineer, and deliver tangible platforms). We are not a company that only
+      advises — we build. But we do not build blindly — everything is guided by deep understanding and strategic intelligence.
+    personality:
+      - Authoritative -> We speak from deep expertise. Our brand conveys trust and competence without arrogance.
+      - Innovative -> We are forward-looking and modern in our approach. We bring cutting-edge technology.
+      - Structured -> We bring order to complexity. Our visual language should reflect clarity and precision.
+      - Warm -> Despite being technical, we are approachable and human. We listen, understand, then build.
+      - Enduring -> Rooted in 5,000 years of knowledge tradition, we are not a trend. We are a long-term partner.
+      - Brazilian -> We are proudly based in Brazil, serving Brazilian organizations first, with global ambition.
+    voice:
+      tone: Confident but not boastful. Technical but not cold. Strategic but not detached.
+      language: Clear, precise, and action-oriented. We avoid buzzwords and jargon. When we use technical terms, we do so with purpose.
+      perspective: We speak as trusted advisors who also get their hands dirty. We are not ivory tower consultants.
+    positioning: |
+      Enkinex is the data and AI consultancy that builds intelligent platforms for organizations ready to turn information
+      into their most powerful strategic asset.
+    taglines:
+      - Where data becomes wisdom
+      - Organizing the world through intelligence
+      - The architecture of insight
+      - Ancient wisdom. Modern platforms.
+  design:
+    instructions:
+      - The visual identity should feel like it belongs to a premium technology consultancy with unusual depth.
+      - It should not look like a generic SaaS startup.
+      - It should not look like an ancient history museum either.
+      - The goal is a modern, authoritative brand that reveals its Sumerian roots subtly in layout and typography
+    restrictions:
+      - Its IMPORTANT and CRUCIAL to note that the colors used in the SVG files attached are just examples
+      - Do not use the original SVG colors as a rule
+      - The SVG colors are only illustrative to make it easy to navigate in the SVG file structure to understand shapes and groups
+    colors:
+      teal:
+        - Teal can be the main or the secondary color.
+        - Enki is heavily associated with the colors teal, turquoise.
+        - Frequently used to represent Enki to symbolize the balance of his wisdom and the healing.
+        - Do a deep research on teal shades and hues that look modern and vivid for a data & AI brand
+        - Ideally, this colors and its shades will work well in dark and light themes
+      blue:
+        - Blue can be the main or the secondary color.
+        - Enki is famously depicted with streams of water flowing directly from his shoulders or body.
+        - These streams represent the Tigris and Euphrates rivers.
+        - Streams are also represented in the brand symbol as the flow that moves from edges through connections.
+        - Do a deep research on blue shades and hues that look modern and vivid for a data & AI brand
+        - Ideally, this colors and its shades will work well in dark and light themes
+      gold:
+        - Gold is an optional color. Can be used as accent or a third color during research. But not a priority.
+        - In modern interpretations, gold is used to signify Enki exalted status as an Anunnaki leader, creator of humanity, and master craftsman.
+        - Do a deep research on gold shades and hues that look modern and vivid for a data & AI brand
+        - Ideally, this colors and its shades will work well in dark and light themes
+    symbol:
+      inspiration:
+        - An isosceles triangle to look like a neuron or synapse connection.
+        - There are three arrow-like nodes, or wedges, in the corners inspired in the cuneiform writing.
+        - There are three connections, or edges, in the center that represent the flow or streams between nodes.
+        - It also looks like a person meditating in the lotus position and the inner flow of energy in the body.
+        - It also looks like a three leaf lotus.
+      svg:
+        oneColor:
+          - There is a `symbol-black-one-shape.svg` with all shapes combined into a black color
+          - There is a `symbol-one-color-one-shape.svg` with all shapes combined into a teal color
+          - You can try multiple variations of single color, in a single shape
+          - You can try multiple filling and stroke variations of flat colors and gradients
+        twoColors:
+          - There is a `symbol-two-colors-two-shapes.svg` with all wedges combined and all center connections combined into two shapes
+          - You can try multiple variations with two distinct colors
+          - You can also try multiple variations with two shades of the same color
+          - You can try multiple filling and stroke variations of flat colors and gradients
+        threeColors:
+          - There is a `symbol-three-colors-four-shapes.svg` with all wedges separated (three shapes) and all center connections combined into one shape. Total is four.
+          - There is a `symbol-three-colors-six-shapes.svg` with all wedges separated (three shapes) and all center connections separated (three shapes). Total is six.
+          - You can try multiple variations with three distinct colors
+          - You can try multiple variations with two distinct colors with two different shades for one of them
+          - You can try multiple variations with one color with three different shades
+          - You can try multiple filling and stroke variations of flat colors and gradients
+    name:
+      todo: Try multiple combinations of colors and alignment for the name.
+      case: Lowercase
+      svg:
+        - The `name.svg` file contains the vectorized font with two groups of paths.
+        - The `enki` group has four letters in teal
+        - The `nex` group has 3 letters in blue
+      proportion: The name is 20mm height in the SVG. This is 2/3 the size of the symbol of 30mm height
+      distance: Ideally, the distance between the symbol and the name is proportional, or equal, to the distance between the two bottom wedges, or the gap, in the symbol.
+      twoColors:
+        - It is the preference, to create a visual separation of `enki` and `nex`
+        - If we use a dark theme, we can test an option with a white `enki` and an accent color on `nex`
+      alignment:
+        centered:
+          - The name is in the right and horizontally centered with the symbol
+          - This is the preferred alignment
+        bottom:
+          - The name is in the right and aligned with the bottom of the symbol
+          - This is an option to inspect
+  output:
+    layout: Create a single page, professional graph designer, brand identity specialist, logo design analysis for each theme
+    themes:
+      - Create one `brand logo analysis` page for a light theme
+      - Create one `brand logo analysis` page for a dark theme
+    colors:
+      - Finding the right colors is crucial for the success
+      - Do a deep research on vivid modern color pallets
+      - Do a deep research on elegant inspirations for the AI era
+      - Do a deep research to find alternative colors and shades for the ones mentioned in this instructions
+    variations:
+      black: Only for light theme as a negative high contrast view
+      white: Only on dark theme as a negative high contrast view
+      oneColor:
+        - Even when the symbol has one color, the name still uses two colors to visually separate `enki` from `nex`. Nex is the movement color
+      twoColor:
+        - Be creative, modern and elegant in variations
+      threeColor:
+        - This offers more room for experimentation
+        - Can become a strong contender with the two colors where one has a second shade
+        - Can become extreme creative or extreme over when using three distinct
+        - Maybe the brand new 2026 Google AI inspired gradients in logos can be a source of inspiration
