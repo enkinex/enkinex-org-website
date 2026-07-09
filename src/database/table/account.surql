@@ -1,3 +1,0 @@
-DEFINE TABLE account SCHEMALESS;
-
-DEFINE FIELD domain ON TABLE account TYPE string;
