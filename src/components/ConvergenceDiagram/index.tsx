@@ -116,12 +116,14 @@ function PillarNode(props: NodeProps) {
   const {lines, color, shape} = props.data as unknown as PillarData;
   const {w, h} = PILLAR;
   const gradId = `ekx-plate-${props.id}`;
+  /* Streams leave from the midpoint of the plate's connecting edge; the
+     skew (s=18) shifts the top edge's midpoint off the box centre. */
   const handles =
     shape === 'apex'
       ? {targets: Position.Top, source: Position.Bottom, sourceStyle: {}}
       : shape === 'lean-right'
-        ? {targets: Position.Left, source: Position.Top, sourceStyle: {left: '75%'}}
-        : {targets: Position.Right, source: Position.Top, sourceStyle: {left: '25%'}};
+        ? {targets: Position.Left, source: Position.Top, sourceStyle: {left: '55.1%'}}
+        : {targets: Position.Right, source: Position.Top, sourceStyle: {left: '44.9%'}};
   const spread = ['25%', '50%', '75%'];
   return (
     <div
@@ -155,14 +157,20 @@ function PillarNode(props: NodeProps) {
 }
 
 function CoreNode() {
+  /* Stream entry points on the rim, 120° apart: 12 o'clock for the top
+     stream, 210° / 330° for the side streams. */
+  const r = CORE.w / 2;
+  const rimX = r - r * Math.cos(Math.PI / 6);
+  const rimY = r + r * Math.sin(Math.PI / 6);
+  const onRim = {top: rimY, right: 'auto', transform: 'translate(-50%, -50%)'} as const;
   return (
     <div className={styles.core} role="img" aria-label="Enkinex">
       {/* "Aurora · Gradient" symbol variation from the brand logo system:
           the whole mark carries the blue→teal→gold aurora gradient. */}
       <EnkinexMark streams="url(#ekx-aurora)" wedges="url(#ekx-aurora)" size={48} />
       <Handle id="in-top" type="target" position={Position.Top} />
-      <Handle id="in-left" type="target" position={Position.Left} />
-      <Handle id="in-right" type="target" position={Position.Right} />
+      <Handle id="in-left" type="target" position={Position.Left} style={{...onRim, left: rimX}} />
+      <Handle id="in-right" type="target" position={Position.Right} style={{...onRim, left: CORE.w - rimX}} />
     </div>
   );
 }
@@ -239,7 +247,11 @@ function BackdropNode() {
 
 function StreamEdge(props: EdgeProps) {
   const {sourceX, sourceY, targetX, targetY} = props;
-  const {color, grad} = props.data as unknown as {color: string; grad: string};
+  const {color, grad, flip} = props.data as unknown as {
+    color: string;
+    grad: string;
+    flip?: boolean;
+  };
   const mx = (sourceX + targetX) / 2;
   const my = (sourceY + targetY) / 2;
   let dx = targetX - sourceX;
@@ -247,7 +259,7 @@ function StreamEdge(props: EdgeProps) {
   const len = Math.hypot(dx, dy) || 1;
   dx /= len;
   dy /= len;
-  const bend = 46;
+  const bend = flip ? -46 : 46;
   const cx = mx + -dy * bend;
   const cy = my + dx * bend;
   const d = `M ${sourceX} ${sourceY} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${targetX} ${targetY}`;
@@ -388,7 +400,7 @@ const edges: Edge[] = [
     target: 'core',
     targetHandle: 'in-left',
     type: 'stream',
-    data: {color: BLUE, grad: 'ekx-stream-blue'},
+    data: {color: BLUE, grad: 'ekx-stream-blue', flip: true},
   },
   {
     id: 'stream-teal',
