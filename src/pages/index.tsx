@@ -24,7 +24,6 @@ export default function Home(): ReactNode {
           <i className={`${styles.corner} ${styles.cornerTR}`} aria-hidden="true" />
           <i className={`${styles.corner} ${styles.cornerBL}`} aria-hidden="true" />
           <i className={`${styles.corner} ${styles.cornerBR}`} aria-hidden="true" />
-          <span className={styles.figLabel}>fig. 01 · convergence</span>
           <BrowserOnly fallback={<div className={styles.diagramFallback} />}>
             {() => {
               const ConvergenceDiagram =

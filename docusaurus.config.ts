@@ -61,8 +61,8 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // TODO: design a branded social card in a follow-up iteration
-    image: 'img/docusaurus-social-card.jpg',
+    // Social share card (1200x630).
+    image: 'img/enkinex-social.png',
     colorMode: {
       // First iteration ships the dark theme only; the light iteration
       // will re-enable the switch.

@@ -102,18 +102,6 @@
   border-right-width: 1px;
 }
 
-/* Draftsman's annotation. */
-.figLabel {
-  position: absolute;
-  top: 14px;
-  left: 18px;
-  font-family: var(--ekx-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: #5e726e;
-  user-select: none;
-}
-
 .diagramFallback {
   width: 100%;
   aspect-ratio: 900 / 540;
@@ -124,11 +112,5 @@
     font-size: 13px;
     letter-spacing: 0.26em;
     text-align: center;
-  }
-
-  .figLabel {
-    top: 10px;
-    left: 14px;
-    font-size: 10px;
   }
 }

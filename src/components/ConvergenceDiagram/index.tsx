@@ -10,7 +10,7 @@ import {
   type ReactFlowInstance,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import EnkinexMark from '@site/src/components/EnkinexMark';
+import EnkinexLogo from '@site/static/img/enkinex-logo.svg';
 import styles from './styles.module.css';
 
 /**
@@ -149,8 +149,7 @@ function PillarNode(props: NodeProps) {
 function CoreNode() {
   return (
     <div className={styles.core}>
-      <EnkinexMark streams="#ffffff" wedges="#ffffff" size={21} />
-      <span className={styles.coreTitle}>Enkinex</span>
+      <EnkinexLogo className={styles.coreLogo} role="img" aria-label="Enkinex" />
       <Handle id="in-top" type="target" position={Position.Top} />
       <Handle id="in-left" type="target" position={Position.Left} style={{top: '70%'}} />
       <Handle id="in-right" type="target" position={Position.Right} style={{top: '70%'}} />
