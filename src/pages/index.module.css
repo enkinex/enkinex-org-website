@@ -51,23 +51,8 @@
   color: var(--ekx-ink);
 }
 
-.titleBreak {
-  display: block;
-  content: '';
-}
-
-@media (max-width: 996px) {
-  .titleBreak {
-    display: none;
-  }
-}
-
 .titleTeal {
   color: var(--ekx-teal);
-}
-
-.titleGold {
-  color: var(--ekx-gold);
 }
 
 /* ---- the drafting sheet -------------------------------------------------- */
@@ -131,7 +116,7 @@
 
 .diagramFallback {
   width: 100%;
-  aspect-ratio: 900 / 500;
+  aspect-ratio: 900 / 540;
 }
 
 @media (max-width: 640px) {

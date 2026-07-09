@@ -234,24 +234,6 @@ h1, h2, h3 {
   text-align: left;
 }
 
-/* ---- Global keyframes shared by the hero diagram ------------------------ */
-@keyframes ekxStreamFlow {
-  to {
-    stroke-dashoffset: -140;
-  }
-}
-
-@keyframes ekxPulse {
-  0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.07);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -16,9 +16,7 @@ export default function Home(): ReactNode {
 
         <Heading as="h1" className={styles.title}>
           Three foundational pillars converge at the{' '}
-          <span className={styles.titleTeal}>Enkinex&nbsp;API</span>
-          <br className={styles.titleBreak} /> to establish a{' '}
-          <span className={styles.titleGold}>semantic&#8209;driven</span> framework.
+          <span className={styles.titleTeal}>Enkinex&nbsp;Framework</span>.
         </Heading>
 
         <div className={styles.board}>

@@ -1,6 +1,25 @@
 .flow {
   width: 100%;
-  aspect-ratio: 900 / 500;
+  aspect-ratio: 900 / 540;
+}
+
+/* Keyframes must live in this module: CSS Modules localizes animation
+   names, so referencing keyframes declared in global CSS never matches. */
+@keyframes streamFlow {
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+@keyframes corePulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.07);
+  }
 }
 
 .flow :global(.react-flow__handle) {
@@ -33,7 +52,7 @@
 .corePulse {
   transform-box: fill-box;
   transform-origin: center;
-  animation: ekxPulse 5.5s ease-in-out infinite;
+  animation: corePulse 5.5s ease-in-out infinite;
 }
 
 /* ---- pillar nodes ------------------------------------------------------ */
@@ -59,10 +78,12 @@
 
 /* ---- core node --------------------------------------------------------- */
 .core {
+  width: 150px;
+  height: 48px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 11px;
-  padding: 13px 19px;
   border-radius: 14px;
   border: 1.5px solid transparent;
   background:
@@ -108,7 +129,7 @@
   stroke-width: 2.6;
   stroke-linecap: round;
   stroke-dasharray: 2 12;
-  animation: ekxStreamFlow 2.2s linear infinite;
+  animation: streamFlow 2.2s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

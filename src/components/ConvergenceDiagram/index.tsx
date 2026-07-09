@@ -26,13 +26,14 @@ const TEAL = '#2bc4b4';
 const BLUE = '#5b8df0';
 const GOLD = '#e6b85a';
 
-const CANVAS = {w: 900, h: 500};
+const CANVAS = {w: 900, h: 540};
 const PILLAR = {w: 176, h: 60};
+const CORE = {w: 150, h: 48};
 const CENTERS = {
-  gold: {x: 450, y: 96},
-  blue: {x: 196, y: 398},
-  teal: {x: 704, y: 398},
-  core: {x: 450, y: 256},
+  gold: {x: 450, y: 136},
+  blue: {x: 196, y: 438},
+  teal: {x: 704, y: 438},
+  core: {x: 450, y: 296},
 };
 
 /* Tabler icons (MIT), inlined as path markup — stroke follows currentColor. */
@@ -88,7 +89,7 @@ function pillarPath(shape: 'apex' | 'lean-right' | 'lean-left'): string {
   const s = 18;
   const pts: Pt[] =
     shape === 'apex'
-      ? [[s, 0], [w - s, 0], [w, h], [0, h]]
+      ? [[0, 0], [w, 0], [w - s, h], [s, h]]
       : shape === 'lean-right'
         ? [[s, 0], [w, 0], [w - s, h], [0, h]]
         : [[0, 0], [w - s, 0], [w, h], [s, h]];
@@ -149,7 +150,7 @@ function CoreNode() {
   return (
     <div className={styles.core}>
       <EnkinexMark streams="#ffffff" wedges="#ffffff" size={21} />
-      <span className={styles.coreTitle}>Enkinex API</span>
+      <span className={styles.coreTitle}>Enkinex</span>
       <Handle id="in-top" type="target" position={Position.Top} />
       <Handle id="in-left" type="target" position={Position.Left} style={{top: '70%'}} />
       <Handle id="in-right" type="target" position={Position.Right} style={{top: '70%'}} />
@@ -275,27 +276,27 @@ const PORTS: Record<'gold' | 'blue' | 'teal', {color: string; out: Position; ite
     color: GOLD,
     out: Position.Bottom,
     items: [
-      {id: 'port-gold-1', icon: 'sitemap', label: 'Ontology', cx: 396, cy: 22},
+      {id: 'port-gold-1', icon: 'sitemap', label: 'Ontology', cx: 366, cy: 22},
       {id: 'port-gold-2', icon: 'schema', label: 'Semantic model', cx: 450, cy: 18},
-      {id: 'port-gold-3', icon: 'vector-triangle', label: 'Knowledge graph', cx: 504, cy: 22},
+      {id: 'port-gold-3', icon: 'vector-triangle', label: 'Knowledge graph', cx: 534, cy: 22},
     ],
   },
   blue: {
     color: BLUE,
     out: Position.Right,
     items: [
-      {id: 'port-blue-1', icon: 'topology-star-3', label: 'Mesh topology', cx: 34, cy: 330},
-      {id: 'port-blue-2', icon: 'hexagons', label: 'Composable domains', cx: 22, cy: 398},
-      {id: 'port-blue-3', icon: 'stack-2', label: 'Layered platform', cx: 34, cy: 466},
+      {id: 'port-blue-1', icon: 'topology-star-3', label: 'Mesh topology', cx: 34, cy: 370},
+      {id: 'port-blue-2', icon: 'hexagons', label: 'Composable domains', cx: 22, cy: 438},
+      {id: 'port-blue-3', icon: 'stack-2', label: 'Layered platform', cx: 34, cy: 506},
     ],
   },
   teal: {
     color: TEAL,
     out: Position.Left,
     items: [
-      {id: 'port-teal-1', icon: 'file-certificate', label: 'Data contracts', cx: 866, cy: 330},
-      {id: 'port-teal-2', icon: 'refresh', label: 'Lifecycle', cx: 878, cy: 398},
-      {id: 'port-teal-3', icon: 'list-check', label: 'Governance checks', cx: 866, cy: 466},
+      {id: 'port-teal-1', icon: 'file-certificate', label: 'Data contracts', cx: 866, cy: 370},
+      {id: 'port-teal-2', icon: 'refresh', label: 'Lifecycle', cx: 878, cy: 438},
+      {id: 'port-teal-3', icon: 'list-check', label: 'Governance checks', cx: 866, cy: 506},
     ],
   },
 };
@@ -333,7 +334,7 @@ const nodes: Node[] = [
   {
     id: 'core',
     type: 'core',
-    position: {x: CENTERS.core.x - 92, y: CENTERS.core.y - 31},
+    position: {x: CENTERS.core.x - CORE.w / 2, y: CENTERS.core.y - CORE.h / 2},
     ...staticNode,
     data: {},
   },
