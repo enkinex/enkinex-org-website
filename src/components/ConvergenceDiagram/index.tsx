@@ -10,7 +10,7 @@ import {
   type ReactFlowInstance,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import EnkinexLogo from '@site/static/img/enkinex-logo.svg';
+import EnkinexMark from '@site/src/components/EnkinexMark';
 import styles from './styles.module.css';
 
 /**
@@ -28,7 +28,7 @@ const GOLD = '#e6b85a';
 
 const CANVAS = {w: 900, h: 540};
 const PILLAR = {w: 176, h: 60};
-const CORE = {w: 150, h: 48};
+const CORE = {w: 96, h: 96};
 const CENTERS = {
   gold: {x: 450, y: 136},
   blue: {x: 196, y: 438},
@@ -148,11 +148,13 @@ function PillarNode(props: NodeProps) {
 
 function CoreNode() {
   return (
-    <div className={styles.core}>
-      <EnkinexLogo className={styles.coreLogo} role="img" aria-label="Enkinex" />
+    <div className={styles.core} role="img" aria-label="Enkinex">
+      {/* "Aurora · Gradient" symbol variation from the brand logo system:
+          the whole mark carries the blue→teal→gold aurora gradient. */}
+      <EnkinexMark streams="url(#ekx-aurora)" wedges="url(#ekx-aurora)" size={48} />
       <Handle id="in-top" type="target" position={Position.Top} />
-      <Handle id="in-left" type="target" position={Position.Left} style={{top: '70%'}} />
-      <Handle id="in-right" type="target" position={Position.Right} style={{top: '70%'}} />
+      <Handle id="in-left" type="target" position={Position.Left} />
+      <Handle id="in-right" type="target" position={Position.Right} />
     </div>
   );
 }
@@ -236,7 +238,8 @@ function StreamEdge(props: EdgeProps) {
   const len = Math.hypot(dx, dy) || 1;
   dx /= len;
   dy /= len;
-  const bend = 46;
+  // Bow proportional to the chord so short streams stay gentle.
+  const bend = len * 0.23;
   const cx = mx + -dy * bend;
   const cy = my + dx * bend;
   const d = `M ${sourceX} ${sourceY} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${targetX} ${targetY}`;
@@ -407,6 +410,11 @@ export default function ConvergenceDiagram(): React.ReactElement {
     <div ref={wrapRef} className={styles.flow}>
       <svg className={styles.defs} aria-hidden="true">
         <defs>
+          <linearGradient id="ekx-aurora" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stopColor={BLUE} />
+            <stop offset="0.52" stopColor={TEAL} />
+            <stop offset="1" stopColor={GOLD} />
+          </linearGradient>
           <linearGradient id="ekx-stream-gold" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor={GOLD} stopOpacity="0.85" />
             <stop offset="1" stopColor="#eaf7f4" stopOpacity="0.95" />

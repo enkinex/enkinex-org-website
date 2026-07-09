@@ -5,10 +5,15 @@ import React from 'react';
  * Geometry: neuron/synapse triangle, three cuneiform wedges, three streams.
  * `streams` colors the central streams + neuron body, `wedges` the three
  * corner wedges. Pass the same value to both for the mono/white version.
+ * `wedgeLeft`/`wedgeRight`/`wedgeTop` override individual wedges for the
+ * expressive "Trio · Full" variation of the logo system.
  */
 export interface EnkinexMarkProps {
   streams?: string;
   wedges?: string;
+  wedgeLeft?: string;
+  wedgeRight?: string;
+  wedgeTop?: string;
   size?: number;
   className?: string;
 }
@@ -28,6 +33,9 @@ const WEDGE_TOP =
 export default function EnkinexMark({
   streams = '#2bc4b4',
   wedges = '#ecf3f1',
+  wedgeLeft = wedges,
+  wedgeRight = wedges,
+  wedgeTop = wedges,
   size = 24,
   className,
 }: EnkinexMarkProps): React.ReactElement {
@@ -43,9 +51,9 @@ export default function EnkinexMark({
         transform="matrix(0.22498111,0,0,-0.22498111,19.038788,20.036629)"
         fillRule="evenodd">
         <path fill={streams} d={BODY} />
-        <path fill={wedges} d={WEDGE_LEFT} />
-        <path fill={wedges} d={WEDGE_RIGHT} />
-        <path fill={wedges} d={WEDGE_TOP} />
+        <path fill={wedgeLeft} d={WEDGE_LEFT} />
+        <path fill={wedgeRight} d={WEDGE_RIGHT} />
+        <path fill={wedgeTop} d={WEDGE_TOP} />
       </g>
     </svg>
   );

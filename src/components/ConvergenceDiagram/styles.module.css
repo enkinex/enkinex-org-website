@@ -78,23 +78,18 @@
 
 /* ---- core node --------------------------------------------------------- */
 .core {
-  width: 150px;
-  height: 48px;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 50%;
   border: 1.5px solid transparent;
+  /* Same plate gradient as the pillar quads, so the core reads as part of the set. */
   background:
-    linear-gradient(#0c1614, #0a1413) padding-box,
+    linear-gradient(135deg, #11201d, #0a1211) padding-box,
     linear-gradient(150deg, #2bc4b4, #5b8df0) border-box;
   box-shadow: 0 0 46px -6px rgba(43, 196, 180, 0.6);
-}
-
-.coreLogo {
-  display: block;
-  height: 27px;
-  width: auto;
 }
 
 /* ---- port (terminator) nodes ------------------------------------------- */
