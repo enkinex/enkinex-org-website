@@ -1,23 +1,149 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * Enkinex landing — a quiet drafting board.
+ * Minimal single-column flow: eyebrow, two-line thesis, convergence sheet.
  */
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.hero {
+  flex: 1;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(56px, 9vh, 92px) 24px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+/* ---- eyebrow ------------------------------------------------------------ */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+  font-family: var(--ekx-font-brand);
+  font-size: 15px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ekx-gold);
+}
+
+/* A single cuneiform tick — the wedge, pressed not drawn. */
+.eyebrowTick {
+  display: inline-block;
+  width: 8px;
+  height: 11px;
+  flex: none;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: var(--ekx-gold);
+}
+
+/* ---- title -------------------------------------------------------------- */
+.title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--ekx-font-heading);
+  font-weight: 600;
+  font-size: clamp(22px, 2.9vw, 33px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  color: var(--ekx-ink);
+}
+
+.titleBreak {
+  display: block;
+  content: '';
+}
+
+@media (max-width: 996px) {
+  .titleBreak {
+    display: none;
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.titleTeal {
+  color: var(--ekx-teal);
+}
+
+.titleGold {
+  color: var(--ekx-gold);
+}
+
+/* ---- the drafting sheet -------------------------------------------------- */
+.board {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+  padding: clamp(18px, 3.5vw, 40px) clamp(14px, 3vw, 32px) clamp(14px, 3vw, 30px);
+  border: 1px solid var(--ekx-hairline);
+  border-radius: 20px;
+  background: radial-gradient(120% 120% at 50% 0%, var(--ekx-depth-1) 0%, var(--ekx-depth-0) 70%);
+}
+
+/* Registration marks at the sheet corners. */
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid rgba(43, 196, 180, 0.45);
+}
+
+.cornerTL {
+  top: -6px;
+  left: -6px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.cornerTR {
+  top: -6px;
+  right: -6px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.cornerBL {
+  bottom: -6px;
+  left: -6px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.cornerBR {
+  bottom: -6px;
+  right: -6px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+/* Draftsman's annotation. */
+.figLabel {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-family: var(--ekx-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #5e726e;
+  user-select: none;
+}
+
+.diagramFallback {
+  width: 100%;
+  aspect-ratio: 900 / 500;
+}
+
+@media (max-width: 640px) {
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.26em;
+    text-align: center;
+  }
+
+  .figLabel {
+    top: 10px;
+    left: 14px;
+    font-size: 10px;
+  }
 }

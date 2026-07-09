@@ -1,43 +1,40 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
+    <Layout description="Semantic & Governance as Code — three foundational pillars converge at the Enkinex API to establish a semantic-driven framework.">
+      <main className={styles.hero}>
+        <p className={styles.eyebrow}>
+          <span className={styles.eyebrowTick} aria-hidden="true" />
+          Semantic &amp; Governance as Code
+        </p>
+
+        <Heading as="h1" className={styles.title}>
+          Three foundational pillars converge at the{' '}
+          <span className={styles.titleTeal}>Enkinex&nbsp;API</span>
+          <br className={styles.titleBreak} /> to establish a{' '}
+          <span className={styles.titleGold}>semantic&#8209;driven</span> framework.
+        </Heading>
+
+        <div className={styles.board}>
+          <i className={`${styles.corner} ${styles.cornerTL}`} aria-hidden="true" />
+          <i className={`${styles.corner} ${styles.cornerTR}`} aria-hidden="true" />
+          <i className={`${styles.corner} ${styles.cornerBL}`} aria-hidden="true" />
+          <i className={`${styles.corner} ${styles.cornerBR}`} aria-hidden="true" />
+          <span className={styles.figLabel}>fig. 01 · convergence</span>
+          <BrowserOnly fallback={<div className={styles.diagramFallback} />}>
+            {() => {
+              const ConvergenceDiagram =
+                require('@site/src/components/ConvergenceDiagram').default;
+              return <ConvergenceDiagram />;
+            }}
+          </BrowserOnly>
+        </div>
       </main>
     </Layout>
   );

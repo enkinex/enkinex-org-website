@@ -1,30 +1,259 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Enkinex global theme — dark-first iteration.
+ *
+ * Brand system (Enkinex Logo Analysis, dark artboard):
+ *   Abzu Teal   #2BC4B4  primary · wisdom core
+ *   Tigris Blue #5B8DF0  secondary · flow core
+ *   Anunna Gold #E6B85A  accent · craft core (reserved, emphasis only)
+ *   Depths      #0A1110 / #0F1A18 surfaces, #1B2724 hairlines
+ *
+ * Typography:
+ *   Homenaje                — brand voice, eyebrow labels (the wordmark font)
+ *   Bricolage Grotesque     — headings (humanist grotesque; its ink traps echo
+ *                             pressed/carved marks without skeuomorphism)
+ *   IBM Plex Sans / Mono    — body & drafting annotations (engineering DNA)
  */
 
-/* You can override the default Infima variables here. */
+@import '@fontsource/homenaje/index.css';
+@import '@fontsource-variable/bricolage-grotesque/index.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Brand tokens */
+  --ekx-teal: #2bc4b4;
+  --ekx-blue: #5b8df0;
+  --ekx-gold: #e6b85a;
+  --ekx-ink: #ecf3f1;
+  --ekx-ink-soft: #c4d2cf;
+  --ekx-ink-muted: #93a6a2;
+  --ekx-ink-faint: #7e918d;
+  --ekx-depth-0: #0a1110;
+  --ekx-depth-1: #0f1a18;
+  --ekx-depth-2: #11201d;
+  --ekx-hairline: #1b2724;
+  --ekx-hairline-strong: #213230;
+
+  --ekx-font-brand: 'Homenaje', sans-serif;
+  --ekx-font-heading: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', sans-serif;
+  --ekx-font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --ekx-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Light palette (placeholder until the light iteration; uses light-core brand values) */
+  --ifm-color-primary: #0e9488;
+  --ifm-color-primary-dark: #0d857a;
+  --ifm-color-primary-darker: #0b7a70;
+  --ifm-color-primary-darkest: #08605a;
+  --ifm-color-primary-light: #10a396;
+  --ifm-color-primary-lighter: #12ada0;
+  --ifm-color-primary-lightest: #2bc4b4;
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: var(--ekx-font-body);
+  --ifm-font-family-monospace: var(--ekx-font-mono);
+  --ifm-heading-font-family: var(--ekx-font-heading);
+  --ifm-heading-font-weight: 600;
+  --ifm-navbar-height: 66px;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ---- Dark theme (the designed iteration) ------------------------------- */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #2bc4b4;
+  --ifm-color-primary-dark: #27b0a2;
+  --ifm-color-primary-darker: #24a699;
+  --ifm-color-primary-darkest: #1e897e;
+  --ifm-color-primary-light: #3fcabb;
+  --ifm-color-primary-lighter: #4bcdbf;
+  --ifm-color-primary-lightest: #6dd6ca;
+
+  --ifm-background-color: var(--ekx-depth-0);
+  --ifm-background-surface-color: var(--ekx-depth-1);
+  --ifm-font-color-base: var(--ekx-ink);
+  --ifm-color-content: var(--ekx-ink);
+  --ifm-color-content-secondary: var(--ekx-ink-muted);
+
+  --ifm-color-emphasis-100: #131e1c;
+  --ifm-color-emphasis-200: var(--ekx-hairline);
+  --ifm-color-emphasis-300: var(--ekx-hairline-strong);
+  --ifm-color-emphasis-400: #2c3a38;
+  --ifm-color-emphasis-500: #3d4d49;
+  --ifm-color-emphasis-600: #5e726e;
+  --ifm-color-emphasis-700: var(--ekx-ink-faint);
+  --ifm-color-emphasis-800: var(--ekx-ink-muted);
+  --ifm-color-emphasis-900: var(--ekx-ink-soft);
+
+  --ifm-navbar-background-color: rgba(10, 17, 16, 0.82);
+  --ifm-navbar-shadow: none;
+  --ifm-footer-background-color: var(--ekx-depth-0);
+  --ifm-card-background-color: var(--ekx-depth-1);
+  --ifm-toc-border-color: var(--ekx-hairline);
+  --ifm-table-border-color: var(--ekx-hairline-strong);
+  --ifm-hr-background-color: var(--ekx-hairline);
+  --ifm-code-background: #13201d;
+  --ifm-pre-background: #0d1715;
+  --docusaurus-highlighted-code-line-bg: rgba(43, 196, 180, 0.09);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  letter-spacing: 0.005em;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.015em;
+}
+
+/* ---- Navbar: drafting-desk header --------------------------------------- */
+.navbar {
+  border-bottom: 1px solid var(--ekx-hairline);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.navbar__logo {
+  height: 30px;
+  margin-right: 0;
+}
+
+.navbar__logo img {
+  height: 100%;
+  width: auto;
+}
+
+.navbar__link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ekx-ink-soft);
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--ekx-ink);
+}
+
+[data-theme='dark'] .navbar__link:hover,
+[data-theme='dark'] .navbar__link--active {
+  color: var(--ekx-teal);
+}
+
+/* GitHub pill button (navbar right) */
+.header-github-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: 10px;
+  padding: 7px 15px;
+  border-radius: 10px;
+  background: rgba(43, 196, 180, 0.12);
+  color: var(--ifm-color-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.15s ease;
+}
+
+.header-github-btn:hover {
+  background: rgba(43, 196, 180, 0.22);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+/* Drop the external-link glyph Docusaurus appends to href items. */
+.header-github-btn svg {
+  display: none;
+}
+
+.header-github-btn::before {
+  content: '';
+  width: 17px;
+  height: 17px;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21'/%3E%3C/svg%3E") no-repeat center / contain;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2c2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2a4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6c-.6.6-.6 1.2-.5 2V21'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* ---- Footer: single-row title block ------------------------------------- */
+.footer--dark {
+  --ifm-footer-background-color: var(--ekx-depth-0);
+}
+
+.footer {
+  border-top: 1px solid var(--ekx-hairline);
+  padding: 22px 0;
+}
+
+.footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer__links {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer__link-separator {
+  display: none;
+}
+
+.footer__link-item {
+  display: flex;
+  align-items: center;
+}
+
+.footer-icon-link {
+  display: flex;
+  align-items: center;
+  color: var(--ekx-ink-muted);
+  transition: color 0.15s ease;
+}
+
+.footer-icon-link:hover {
+  color: var(--ekx-teal);
+}
+
+/* Copyright reads first (left), social icons close the row (right). */
+.footer__bottom {
+  order: -1;
+}
+
+.footer__copyright {
+  font-size: 13px;
+  color: var(--ekx-ink-faint);
+  text-align: left;
+}
+
+/* ---- Global keyframes shared by the hero diagram ------------------------ */
+@keyframes ekxStreamFlow {
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+@keyframes ekxPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
