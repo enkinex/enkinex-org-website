@@ -29,11 +29,19 @@ const GOLD = '#e6b85a';
 const CANVAS = {w: 900, h: 540};
 const PILLAR = {w: 176, h: 60};
 const CORE = {w: 96, h: 96};
+
+/* Exact equilateral geometry: the three pillar centres sit on the corners
+   of an equilateral triangle with circumradius R; the core circle sits at
+   its centre (centroid = circumcenter), so all three streams are equal. */
+const R = 201.33;
+const CX = 450;
+const APEX_Y = 136;
+const HALF_BASE = R * Math.sin(Math.PI / 3); // ≈ 174.36
 const CENTERS = {
-  gold: {x: 450, y: 136},
-  blue: {x: 196, y: 438},
-  teal: {x: 704, y: 438},
-  core: {x: 450, y: 296},
+  gold: {x: CX, y: APEX_Y},
+  blue: {x: CX - HALF_BASE, y: APEX_Y + 1.5 * R},
+  teal: {x: CX + HALF_BASE, y: APEX_Y + 1.5 * R},
+  core: {x: CX, y: APEX_Y + R},
 };
 
 /* Tabler icons (MIT), inlined as path markup — stroke follows currentColor. */
@@ -214,7 +222,8 @@ function BackdropNode() {
         strokeDasharray="2 9"
       />
       <circle cx={core.x} cy={core.y} r="120" fill="none" stroke={TEAL} strokeOpacity="0.11" strokeDasharray="1 9" />
-      <circle cx={core.x} cy={core.y} r="200" fill="none" stroke={TEAL} strokeOpacity="0.07" strokeDasharray="1 9" />
+      {/* Circumcircle: passes exactly through the three pillar centres. */}
+      <circle cx={core.x} cy={core.y} r={R} fill="none" stroke={TEAL} strokeOpacity="0.07" strokeDasharray="1 9" />
       <circle className={styles.corePulse} cx={core.x} cy={core.y} r="158" fill="url(#ekx-glow-core)" />
       <circle cx={gold.x} cy={gold.y} r="54" fill="url(#ekx-glow-gold)" />
       <circle cx={blue.x} cy={blue.y} r="54" fill="url(#ekx-glow-blue)" />
@@ -238,8 +247,7 @@ function StreamEdge(props: EdgeProps) {
   const len = Math.hypot(dx, dy) || 1;
   dx /= len;
   dy /= len;
-  // Bow proportional to the chord so short streams stay gentle.
-  const bend = len * 0.23;
+  const bend = 46;
   const cx = mx + -dy * bend;
   const cy = my + dx * bend;
   const d = `M ${sourceX} ${sourceY} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${targetX} ${targetY}`;
@@ -287,18 +295,18 @@ const PORTS: Record<'gold' | 'blue' | 'teal', {color: string; out: Position; ite
     color: BLUE,
     out: Position.Right,
     items: [
-      {id: 'port-blue-1', icon: 'topology-star-3', label: 'Mesh topology', cx: 34, cy: 370},
-      {id: 'port-blue-2', icon: 'hexagons', label: 'Composable domains', cx: 22, cy: 438},
-      {id: 'port-blue-3', icon: 'stack-2', label: 'Layered platform', cx: 34, cy: 506},
+      {id: 'port-blue-1', icon: 'topology-star-3', label: 'Mesh topology', cx: CENTERS.blue.x - 162, cy: 370},
+      {id: 'port-blue-2', icon: 'hexagons', label: 'Composable domains', cx: CENTERS.blue.x - 174, cy: 438},
+      {id: 'port-blue-3', icon: 'stack-2', label: 'Layered platform', cx: CENTERS.blue.x - 162, cy: 506},
     ],
   },
   teal: {
     color: TEAL,
     out: Position.Left,
     items: [
-      {id: 'port-teal-1', icon: 'file-certificate', label: 'Data contracts', cx: 866, cy: 370},
-      {id: 'port-teal-2', icon: 'refresh', label: 'Lifecycle', cx: 878, cy: 438},
-      {id: 'port-teal-3', icon: 'list-check', label: 'Governance checks', cx: 866, cy: 506},
+      {id: 'port-teal-1', icon: 'file-certificate', label: 'Data contracts', cx: CENTERS.teal.x + 162, cy: 370},
+      {id: 'port-teal-2', icon: 'refresh', label: 'Lifecycle', cx: CENTERS.teal.x + 174, cy: 438},
+      {id: 'port-teal-3', icon: 'list-check', label: 'Governance checks', cx: CENTERS.teal.x + 162, cy: 506},
     ],
   },
 };
