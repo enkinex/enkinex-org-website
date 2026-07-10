@@ -1,6 +1,18 @@
+.wrap {
+  width: 100%;
+}
+
 .flow {
   width: 100%;
-  aspect-ratio: 900 / 540;
+  aspect-ratio: 740 / 360;
+}
+
+/* Vertical (narrow) layout: capped and centred so the sheet never balloons
+   just under the breakpoint. */
+.flow.vertical {
+  width: min(100%, 400px);
+  margin: 0 auto;
+  aspect-ratio: 330 / 450;
 }
 
 /* Keyframes must live in this module: CSS Modules localizes animation
@@ -78,8 +90,8 @@
 
 /* ---- core node --------------------------------------------------------- */
 .core {
-  width: 96px;
-  height: 96px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
