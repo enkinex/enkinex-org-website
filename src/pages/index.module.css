@@ -60,7 +60,9 @@
   position: relative;
   width: 100%;
   margin-top: 6px;
-  padding: clamp(18px, 3.5vw, 40px) clamp(14px, 3vw, 32px) clamp(14px, 3vw, 30px);
+  /* Slim bottom padding: the diagram canvas now carries the fade-out room
+     for the core glow itself. */
+  padding: clamp(14px, 2.8vw, 30px) clamp(12px, 2.6vw, 26px) clamp(6px, 1.2vw, 12px);
   border: 1px solid var(--ekx-hairline);
   border-radius: 20px;
   background: radial-gradient(120% 120% at 50% 0%, var(--ekx-depth-1) 0%, var(--ekx-depth-0) 70%);
@@ -104,14 +106,14 @@
 
 .diagramFallback {
   width: 100%;
-  aspect-ratio: 740 / 360;
+  aspect-ratio: 740 / 342;
 }
 
 @media (max-width: 700px) {
   .diagramFallback {
     max-width: 400px;
     margin: 0 auto;
-    aspect-ratio: 330 / 450;
+    aspect-ratio: 330 / 472;
   }
 }
 

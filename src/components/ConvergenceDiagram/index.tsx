@@ -47,17 +47,19 @@ const VERTICAL_BREAKPOINT = 620;
 
 /* ---- layout sheets ------------------------------------------------------ */
 
+/* Canvas heights leave room below the core for its pulse glow (r × the 1.07
+   animation scale) so it fades out inside the viewport instead of clipping. */
 const H = {
-  canvas: {w: 740, h: 360},
+  canvas: {w: 740, h: 342},
   portY: 38,
   portDx: 84,
-  pillarY: 170,
+  pillarY: 126,
   x: {blue: 118, gold: 370, teal: 622},
-  core: {x: 370, y: 310},
+  core: {x: 370, y: 266},
 };
 
 const V = {
-  canvas: {w: 330, h: 450},
+  canvas: {w: 330, h: 472},
   x: 150,
   rows: {gold: 48, teal: 164, blue: 280},
   core: {x: 150, y: 402},
@@ -387,7 +389,13 @@ const PILLAR_DEFS: Record<
   },
 };
 
-function portEdge(portId: string, pillarId: string, inHandle: string, color: string): Edge {
+function portEdge(
+  portId: string,
+  pillarId: string,
+  inHandle: string,
+  color: string,
+  borderRadius = 10,
+): Edge {
   return {
     id: `e-${portId}`,
     source: portId,
@@ -395,7 +403,7 @@ function portEdge(portId: string, pillarId: string, inHandle: string, color: str
     target: pillarId,
     targetHandle: inHandle,
     type: 'smoothstep',
-    pathOptions: {borderRadius: 10},
+    pathOptions: {borderRadius},
     style: {stroke: color, strokeOpacity: 0.38, strokeWidth: 1.3},
   } as Edge;
 }
@@ -551,9 +559,12 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         color: def.color,
         shape: 'row',
         out: {position: Position.Left},
+        /* Both port connectors leave from one overlapping point at the
+           centre of the row's right side: the longer vertical runs keep the
+           two rounded corners apart instead of collapsing into an S. */
         ins: [
-          {position: Position.Right, style: {top: '30%'}},
-          {position: Position.Right, style: {top: '70%'}},
+          {position: Position.Right, style: {top: '50%'}},
+          {position: Position.Right, style: {top: '50%'}},
         ],
       } satisfies PillarData,
     });
@@ -570,7 +581,7 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         ...staticNode,
         data: {icon: p.icon, color: def.color, label: p.label, out: Position.Left} satisfies PortData,
       });
-      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color));
+      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color, 7));
     });
     /* One flow colour throughout — the branches never overlap. The first row
        rides the whole trunk; the others join it with straight stubs. */
