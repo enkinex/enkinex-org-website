@@ -1,0 +1,116 @@
+/**
+ * Enkinex landing — a quiet drafting board.
+ * Minimal single-column flow: eyebrow, two-line thesis, convergence sheet.
+ */
+
+.hero {
+  flex: 1;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(56px, 9vh, 92px) 24px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+/* ---- eyebrow ------------------------------------------------------------ */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+  font-family: var(--ekx-font-brand);
+  font-size: 15px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ekx-gold);
+}
+
+/* A single cuneiform tick — the wedge, pressed not drawn. */
+.eyebrowTick {
+  display: inline-block;
+  width: 8px;
+  height: 11px;
+  flex: none;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: var(--ekx-gold);
+}
+
+/* ---- title -------------------------------------------------------------- */
+.title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--ekx-font-heading);
+  font-weight: 600;
+  font-size: clamp(22px, 2.9vw, 33px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  color: var(--ekx-ink);
+}
+
+.titleTeal {
+  color: var(--ekx-teal);
+}
+
+/* ---- the drafting sheet -------------------------------------------------- */
+.board {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+  padding: clamp(18px, 3.5vw, 40px) clamp(14px, 3vw, 32px) clamp(14px, 3vw, 30px);
+  border: 1px solid var(--ekx-hairline);
+  border-radius: 20px;
+  background: radial-gradient(120% 120% at 50% 0%, var(--ekx-depth-1) 0%, var(--ekx-depth-0) 70%);
+}
+
+/* Registration marks at the sheet corners. */
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid rgba(43, 196, 180, 0.45);
+}
+
+.cornerTL {
+  top: -6px;
+  left: -6px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.cornerTR {
+  top: -6px;
+  right: -6px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.cornerBL {
+  bottom: -6px;
+  left: -6px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.cornerBR {
+  bottom: -6px;
+  right: -6px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.diagramFallback {
+  width: 100%;
+  aspect-ratio: 900 / 540;
+}
+
+@media (max-width: 640px) {
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.26em;
+    text-align: center;
+  }
+}

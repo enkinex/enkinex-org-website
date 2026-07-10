@@ -1,0 +1,134 @@
+.flow {
+  width: 100%;
+  aspect-ratio: 900 / 540;
+}
+
+/* Keyframes must live in this module: CSS Modules localizes animation
+   names, so referencing keyframes declared in global CSS never matches. */
+@keyframes streamFlow {
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+@keyframes corePulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.07);
+  }
+}
+
+.flow :global(.react-flow__handle) {
+  opacity: 0;
+  width: 2px;
+  height: 2px;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  pointer-events: none;
+}
+
+.flow :global(.react-flow__pane),
+.flow :global(.react-flow__node) {
+  cursor: default;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---- backdrop --------------------------------------------------------- */
+.backdrop {
+  pointer-events: none;
+}
+
+.corePulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: corePulse 5.5s ease-in-out infinite;
+}
+
+/* ---- pillar nodes ------------------------------------------------------ */
+.pillar {
+  position: relative;
+}
+
+.pillarText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.25;
+  text-align: center;
+  font-family: var(--ekx-font-heading);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: #ecf3f1;
+  letter-spacing: 0.01em;
+}
+
+/* ---- core node --------------------------------------------------------- */
+.core {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  /* Same plate gradient as the pillar quads, so the core reads as part of the set. */
+  background:
+    linear-gradient(135deg, #11201d, #0a1211) padding-box,
+    linear-gradient(150deg, #2bc4b4, #5b8df0) border-box;
+  box-shadow: 0 0 46px -6px rgba(43, 196, 180, 0.6);
+}
+
+/* ---- port (terminator) nodes ------------------------------------------- */
+.port {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #0d1715;
+  border: 1px solid;
+  display: grid;
+  place-items: center;
+}
+
+.port svg {
+  display: block;
+}
+
+/* ---- stream edges ------------------------------------------------------ */
+.streamBase {
+  fill: none;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-opacity: 0.15;
+}
+
+.streamDash {
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+  animation: streamFlow 2.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .streamDash {
+    animation: none;
+  }
+
+  .corePulse {
+    animation: none;
+  }
+}

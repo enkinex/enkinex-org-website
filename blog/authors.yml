@@ -1,0 +1,9 @@
+rodrigo:
+  name: Rodrigo de Alvarenga Mattos
+  title: Data Engineer & Architect
+  url: https://www.linkedin.com/in/rodrigo-alvarenga-mattos/
+  image_url: img/author/rodrigo.jpg
+  page: true
+  socials:
+    linkedin: rodrigo-alvarenga-mattos
+    github: rodrigoalvamat
