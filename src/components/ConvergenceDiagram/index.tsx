@@ -36,6 +36,8 @@ const BLUE = '#5b8df0';
 const GOLD = '#e6b85a';
 
 const PILLAR = {w: 176, h: 60};
+/* Horizontal inset of the wedge plates' slanted sides. */
+const SKEW = 18;
 /* Core diameter matches the pillar height so the levels feel balanced. */
 const CORE = {w: 60, h: 60};
 const PORT = 36;
@@ -59,12 +61,12 @@ const H = {
 };
 
 const V = {
-  canvas: {w: 330, h: 472},
+  canvas: {w: 330, h: 476},
   x: 150,
-  rows: {gold: 48, teal: 164, blue: 280},
-  core: {x: 150, y: 402},
+  rows: {gold: 52, teal: 168, blue: 284},
+  core: {x: 150, y: 406},
   trunkX: 20,
-  port: {x: 296, dy: 26},
+  port: {x: 296, dy: 30},
 };
 
 /* Tabler icons (MIT), inlined as path markup — stroke follows currentColor. */
@@ -137,7 +139,7 @@ type PillarShape = 'apex-inverted' | 'lean-right' | 'lean-left' | 'row';
 /** Wedge-plate quads (skew s=18) plus the rounded-rectangle row variant. */
 function pillarPath(shape: PillarShape): string {
   const {w, h} = PILLAR;
-  const s = 18;
+  const s = SKEW;
   const pts: Pt[] =
     shape === 'apex-inverted'
       ? [[s, 0], [w - s, 0], [w, h], [0, h]]
@@ -488,9 +490,27 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
   ];
   const edges: Edge[] = [];
 
+  /* Where each plate's top edge actually runs inside its bounding box: the
+     skewed sides pull one or both top corners in by SKEW. Connection points
+     divide that true edge into four equal segments, so the three connectors
+     are as far from each other as from the plate's top corners. */
+  const topEdge: Record<PillarKey, [number, number]> = {
+    gold: [SKEW, PILLAR.w - SKEW],
+    blue: [SKEW, PILLAR.w],
+    teal: [0, PILLAR.w - SKEW],
+  };
+
   for (const key of ['blue', 'gold', 'teal'] as PillarKey[]) {
     const def = PILLAR_DEFS[key];
     const cx = H.x[key];
+    const [edgeStart, edgeEnd] = topEdge[key];
+    const quarter = (edgeEnd - edgeStart) / 4;
+    /* Ports centre on the top edge's midpoint so the middle connector drops
+       plumb; the outer ports spread wider than their connection points and
+       the pipe edges step inward, echoing the apex arrangement of the
+       triangle version. The middle port sits a touch higher, as it did
+       there. */
+    const edgeMidX = cx - PILLAR.w / 2 + edgeStart + 2 * quarter;
     nodes.push({
       id: `pillar-${key}`,
       type: 'pillar',
@@ -501,23 +521,19 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
         color: def.color,
         shape: shapes[key],
         out: {position: Position.Bottom, style: {left: bottomMid[key]}},
-        ins: [
-          {position: Position.Top, style: {left: '25%'}},
-          {position: Position.Top, style: {left: '50%'}},
-          {position: Position.Top, style: {left: '75%'}},
-        ],
+        ins: [1, 2, 3].map((i) => ({
+          position: Position.Top,
+          style: {left: `${(((edgeStart + i * quarter) / PILLAR.w) * 100).toFixed(2)}%`},
+        })),
       } satisfies PillarData,
     });
     def.icons.forEach((p, i) => {
       const id = `port-${key}-${i + 1}`;
-      /* Ports spread wider than their target handles; the pipe edges step
-         inward, echoing the apex arrangement of the triangle version.
-         The middle port sits a touch higher, as it did there. */
       nodes.push({
         id,
         type: 'port',
         position: {
-          x: cx + (i - 1) * H.portDx - PORT / 2,
+          x: edgeMidX + (i - 1) * H.portDx - PORT / 2,
           y: H.portY - (i === 1 ? 4 : 0) - PORT / 2,
         },
         ...staticNode,
@@ -586,12 +602,12 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         color: def.color,
         shape: 'row',
         out: {position: Position.Left},
-        /* Both port connectors leave from one overlapping point at the
-           centre of the row's right side: the longer vertical runs keep the
-           two rounded corners apart instead of collapsing into an S. */
+        /* The row's right side divides into three equal segments: the two
+           connection points sit as far from each other as from the row's
+           corners. */
         ins: [
-          {position: Position.Right, style: {top: '50%'}},
-          {position: Position.Right, style: {top: '50%'}},
+          {position: Position.Right, style: {top: '33.33%'}},
+          {position: Position.Right, style: {top: '66.67%'}},
         ],
       } satisfies PillarData,
     });

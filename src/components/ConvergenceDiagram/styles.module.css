@@ -12,7 +12,7 @@
 .flow.vertical {
   width: min(100%, 400px);
   margin: 0 auto;
-  aspect-ratio: 330 / 472;
+  aspect-ratio: 330 / 476;
 }
 
 /* Keyframes must live in this module: CSS Modules localizes animation
