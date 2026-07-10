@@ -324,6 +324,33 @@ function FlowEdge(props: EdgeProps) {
   );
 }
 
+/* Port connector: one continuous plumbing path — straight run, rounded
+   corner, straight shelf at the halfway line, rounded corner, straight run.
+   `axis` is the main travel direction ('v' drops between rows, 'h' runs
+   between columns); aligned endpoints collapse to a plain straight line. */
+
+type PipeData = {color: string; axis: 'v' | 'h'};
+
+function PipeEdge(props: EdgeProps) {
+  const {sourceX, sourceY, targetX, targetY} = props;
+  const {color, axis} = props.data as unknown as PipeData;
+  let pts: Pt[];
+  if (axis === 'v') {
+    const my = (sourceY + targetY) / 2;
+    pts =
+      Math.abs(sourceX - targetX) < 0.5
+        ? [[sourceX, sourceY], [targetX, targetY]]
+        : [[sourceX, sourceY], [sourceX, my], [targetX, my], [targetX, targetY]];
+  } else {
+    const mx = (sourceX + targetX) / 2;
+    pts =
+      Math.abs(sourceY - targetY) < 0.5
+        ? [[sourceX, sourceY], [targetX, targetY]]
+        : [[sourceX, sourceY], [mx, sourceY], [mx, targetY], [targetX, targetY]];
+  }
+  return <path className={styles.pipe} d={orthoPath(pts, 8)} style={{stroke: color}} />;
+}
+
 /* ---- graph definition ---------------------------------------------------- */
 
 const nodeTypes = {
@@ -335,6 +362,7 @@ const nodeTypes = {
 
 const edgeTypes = {
   flow: FlowEdge,
+  pipe: PipeEdge,
 };
 
 const staticNode = {
@@ -394,7 +422,7 @@ function portEdge(
   pillarId: string,
   inHandle: string,
   color: string,
-  borderRadius = 10,
+  axis: PipeData['axis'],
 ): Edge {
   return {
     id: `e-${portId}`,
@@ -402,10 +430,9 @@ function portEdge(
     sourceHandle: 'out',
     target: pillarId,
     targetHandle: inHandle,
-    type: 'smoothstep',
-    pathOptions: {borderRadius},
-    style: {stroke: color, strokeOpacity: 0.38, strokeWidth: 1.3},
-  } as Edge;
+    type: 'pipe',
+    data: {color, axis} satisfies PipeData,
+  };
 }
 
 /** Inverted org chart: ports on level 1, pillar row on level 2, symbol last. */
@@ -483,8 +510,8 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
     });
     def.icons.forEach((p, i) => {
       const id = `port-${key}-${i + 1}`;
-      /* Ports spread wider than their target handles; the smoothstep edges
-         step inward, echoing the apex arrangement of the triangle version.
+      /* Ports spread wider than their target handles; the pipe edges step
+         inward, echoing the apex arrangement of the triangle version.
          The middle port sits a touch higher, as it did there. */
       nodes.push({
         id,
@@ -496,7 +523,7 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
         ...staticNode,
         data: {icon: p.icon, color: def.color, label: p.label, out: Position.Bottom} satisfies PortData,
       });
-      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color));
+      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color, 'v'));
     });
     edges.push({
       id: `stream-${key}`,
@@ -581,7 +608,7 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         ...staticNode,
         data: {icon: p.icon, color: def.color, label: p.label, out: Position.Left} satisfies PortData,
       });
-      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color, 7));
+      edges.push(portEdge(id, `pillar-${key}`, `in-${i + 1}`, def.color, 'h'));
     });
     /* One flow colour throughout — the branches never overlap. The first row
        rides the whole trunk; the others join it with straight stubs. */

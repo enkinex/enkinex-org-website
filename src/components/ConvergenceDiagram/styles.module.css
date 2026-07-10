@@ -119,6 +119,14 @@
   display: block;
 }
 
+/* ---- port pipe edges ---------------------------------------------------- */
+.pipe {
+  fill: none;
+  stroke-width: 1.3;
+  stroke-opacity: 0.38;
+  stroke-linecap: round;
+}
+
 /* ---- stream edges ------------------------------------------------------ */
 .streamBase {
   fill: none;
