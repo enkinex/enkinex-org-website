@@ -55,6 +55,29 @@
   color: var(--ekx-teal);
 }
 
+/* Locked title breaks, measured against the real font at the 22px floor
+   (48px hero padding included, ~4% buffer for device rasterization):
+   the full sentence holds one line down to a 686px viewport, the 2-line
+   split to 434px, the 3-line split to 313px. Tiers: 1 line ≥720px,
+   2 lines 450–719px, 3 lines ≤449px. The break after "at" is shared by
+   both wrapped tiers; the break after "pillars" is 3-line only. */
+.brTwo,
+.brThree {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .brTwo {
+    display: inline;
+  }
+}
+
+@media (max-width: 449px) {
+  .brThree {
+    display: inline;
+  }
+}
+
 /* ---- the drafting sheet -------------------------------------------------- */
 .board {
   position: relative;

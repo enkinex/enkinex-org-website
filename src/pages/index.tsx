@@ -15,7 +15,9 @@ export default function Home(): ReactNode {
         </p>
 
         <Heading as="h1" className={styles.title}>
-          Three foundational pillars converge at the{' '}
+          Three foundational pillars
+          <br className={styles.brThree} /> converge at
+          <br className={styles.brTwo} /> the{' '}
           <span className={styles.titleTeal}>Enkinex&nbsp;Framework</span>.
         </Heading>
 

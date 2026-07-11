@@ -49,6 +49,13 @@
   cursor: default;
 }
 
+/* The library ships `touch-action: none` on the pane for its pan/zoom
+   gestures, but this diagram disables all of them — restore native touch
+   handling so a swipe over the canvas scrolls the page on mobile. */
+.flow :global(.react-flow__pane) {
+  touch-action: auto;
+}
+
 .defs {
   position: absolute;
   width: 0;
