@@ -16,14 +16,17 @@
 }
 
 /* ---- eyebrow ------------------------------------------------------------ */
+/* Drafting-label voice: tracked mono caps, like lettering along a sheet
+   border. Mono is wide-set already, so the tracking stays moderate. */
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 11px;
   margin: 0;
-  font-family: var(--ekx-font-brand);
-  font-size: 15px;
-  letter-spacing: 0.34em;
+  font-family: var(--ekx-font-label);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ekx-gold);
 }
@@ -55,14 +58,38 @@
   color: var(--ekx-teal);
 }
 
+/* Locked title breaks, measured against the real font at the 22px floor
+   (48px hero padding included, ~4% buffer for device rasterization):
+   the full sentence holds one line down to a 686px viewport, the 2-line
+   split to 434px, the 3-line split to 313px. Tiers: 1 line ≥720px,
+   2 lines 450–719px, 3 lines ≤449px. The break after "at" is shared by
+   both wrapped tiers; the break after "pillars" is 3-line only. */
+.brTwo,
+.brThree {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .brTwo {
+    display: inline;
+  }
+}
+
+@media (max-width: 449px) {
+  .brThree {
+    display: inline;
+  }
+}
+
 /* ---- the drafting sheet -------------------------------------------------- */
 .board {
   position: relative;
   width: 100%;
   margin-top: 6px;
-  /* Slim bottom padding: the diagram canvas now carries the fade-out room
-     for the core glow itself. */
-  padding: clamp(14px, 2.8vw, 30px) clamp(12px, 2.6vw, 26px) clamp(6px, 1.2vw, 12px);
+  /* Half padding at the bottom: the survey ring around the symbol already
+     enlarges the canvas below it, so the frame compensates to keep the
+     reveal looking even. */
+  padding: clamp(14px, 2.8vw, 30px) clamp(12px, 2.6vw, 26px) clamp(7px, 1.4vw, 15px);
   border: 1px solid var(--ekx-hairline);
   border-radius: 20px;
   background: radial-gradient(120% 120% at 50% 0%, var(--ekx-depth-1) 0%, var(--ekx-depth-0) 70%);
@@ -106,21 +133,75 @@
 
 .diagramFallback {
   width: 100%;
-  aspect-ratio: 740 / 342;
+  aspect-ratio: 740 / 312;
 }
 
 @media (max-width: 700px) {
+  /* The viewport-relative clamps bottom out too tight on phones and the
+     sheet reads as stuck to the frame — double the reveal there (bottom
+     still halved against the survey ring's extra room). */
+  .board {
+    padding: 28px 24px 14px;
+  }
+
   .diagramFallback {
     max-width: 400px;
     margin: 0 auto;
-    aspect-ratio: 330 / 476;
+    aspect-ratio: 352 / 464;
   }
+}
+
+/* ---- call to action ------------------------------------------------------ */
+/* Two stamps under the sheet: quiet hairline plate + gold accent plate,
+   lettered in the same tracked mono caps as the drafting labels. */
+.cta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 26px;
+  border: 1px solid var(--ekx-hairline-strong);
+  border-radius: 10px;
+  font-family: var(--ekx-font-label);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ekx-ink-soft);
+  background: transparent;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.ctaBtn:hover {
+  color: var(--ekx-teal);
+  border-color: rgba(43, 196, 180, 0.45);
+  text-decoration: none;
+}
+
+.ctaBtnAccent {
+  color: var(--ekx-gold);
+  border-color: rgba(230, 184, 90, 0.5);
+  background: rgba(230, 184, 90, 0.07);
+}
+
+.ctaBtnAccent:hover {
+  color: var(--ekx-gold);
+  border-color: rgba(230, 184, 90, 0.75);
+  background: rgba(230, 184, 90, 0.14);
 }
 
 @media (max-width: 640px) {
   .eyebrow {
-    font-size: 13px;
-    letter-spacing: 0.26em;
+    font-size: 12px;
+    letter-spacing: 0.14em;
     text-align: center;
   }
 }
