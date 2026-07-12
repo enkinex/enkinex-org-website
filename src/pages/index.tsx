@@ -1,7 +1,9 @@
 import type {ReactNode} from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import LibraryCatalog from '@site/src/components/LibraryCatalog';
 
 import styles from './index.module.css';
 
@@ -34,7 +36,18 @@ export default function Home(): ReactNode {
             }}
           </BrowserOnly>
         </div>
+
+        <div className={styles.cta}>
+          <Link className={styles.ctaBtn} to="/docs/why-enkinex">
+            Why Enkinex
+          </Link>
+          <Link className={`${styles.ctaBtn} ${styles.ctaBtnAccent}`} to="/docs/architecture">
+            Architecture Tour
+          </Link>
+        </div>
       </main>
+
+      <LibraryCatalog />
     </Layout>
   );
 }

@@ -23,16 +23,6 @@
   }
 }
 
-@keyframes corePulse {
-  0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.07);
-  }
-}
 
 .flow :global(.react-flow__handle) {
   opacity: 0;
@@ -66,12 +56,6 @@
 /* ---- backdrop --------------------------------------------------------- */
 .backdrop {
   pointer-events: none;
-}
-
-.corePulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: corePulse 5.5s ease-in-out infinite;
 }
 
 /* ---- pillar nodes ------------------------------------------------------ */
@@ -108,7 +92,8 @@
   background:
     linear-gradient(135deg, #11201d, #0a1211) padding-box,
     linear-gradient(150deg, #2bc4b4, #5b8df0) border-box;
-  box-shadow: 0 0 46px -6px rgba(43, 196, 180, 0.6);
+  /* Pressed pen ring: a dark groove under the stroke instead of a glow. */
+  box-shadow: 0 1.2px 0 rgba(0, 0, 0, 0.45);
 }
 
 /* ---- port (terminator) nodes ------------------------------------------- */
@@ -120,6 +105,7 @@
   border: 1px solid;
   display: grid;
   place-items: center;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .port svg {
@@ -129,23 +115,25 @@
 /* ---- port pipe edges ---------------------------------------------------- */
 .pipe {
   fill: none;
-  stroke-width: 1.3;
-  stroke-opacity: 0.38;
+  stroke-width: 1.15;
+  stroke-opacity: 0.5;
   stroke-linecap: round;
 }
 
 /* ---- stream edges ------------------------------------------------------ */
+/* Pen-drawn streams: a solid ink run with a quiet dashed flow riding it. */
 .streamBase {
   fill: none;
-  stroke-width: 3.2;
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-opacity: 0.15;
+  stroke-opacity: 0.45;
 }
 
 .streamDash {
   fill: none;
-  stroke-width: 2.6;
+  stroke-width: 1.5;
   stroke-linecap: round;
+  stroke-opacity: 0.9;
   stroke-dasharray: 2 12;
   animation: streamFlow 2.2s linear infinite;
 }

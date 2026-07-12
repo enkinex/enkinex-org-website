@@ -16,14 +16,17 @@
 }
 
 /* ---- eyebrow ------------------------------------------------------------ */
+/* Drafting-label voice: tracked mono caps, like lettering along a sheet
+   border. Mono is wide-set already, so the tracking stays moderate. */
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 11px;
   margin: 0;
-  font-family: var(--ekx-font-brand);
-  font-size: 15px;
-  letter-spacing: 0.34em;
+  font-family: var(--ekx-font-label);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ekx-gold);
 }
@@ -140,10 +143,57 @@
   }
 }
 
+/* ---- call to action ------------------------------------------------------ */
+/* Two stamps under the sheet: quiet hairline plate + gold accent plate,
+   lettered in the same tracked mono caps as the drafting labels. */
+.cta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 26px;
+  border: 1px solid var(--ekx-hairline-strong);
+  border-radius: 10px;
+  font-family: var(--ekx-font-label);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ekx-ink-soft);
+  background: transparent;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.ctaBtn:hover {
+  color: var(--ekx-teal);
+  border-color: rgba(43, 196, 180, 0.45);
+  text-decoration: none;
+}
+
+.ctaBtnAccent {
+  color: var(--ekx-gold);
+  border-color: rgba(230, 184, 90, 0.5);
+  background: rgba(230, 184, 90, 0.07);
+}
+
+.ctaBtnAccent:hover {
+  color: var(--ekx-gold);
+  border-color: rgba(230, 184, 90, 0.75);
+  background: rgba(230, 184, 90, 0.14);
+}
+
 @media (max-width: 640px) {
   .eyebrow {
-    font-size: 13px;
-    letter-spacing: 0.26em;
+    font-size: 12px;
+    letter-spacing: 0.14em;
     text-align: center;
   }
 }

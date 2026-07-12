@@ -8,14 +8,18 @@
  *   Depths      #0A1110 / #0F1A18 surfaces, #1B2724 hairlines
  *
  * Typography:
- *   Homenaje                — brand voice, eyebrow labels (the wordmark font)
- *   Bricolage Grotesque     — headings (humanist grotesque; its ink traps echo
- *                             pressed/carved marks without skeuomorphism)
- *   IBM Plex Sans / Mono    — body & drafting annotations (engineering DNA)
+ *   Homenaje                — brand voice only (the wordmark font)
+ *   Barlow                  — headings (humanized DIN/signage descendant:
+ *                             slightly rounded, low-contrast grotesque)
+ *   IBM Plex Sans / Mono    — body & drafting annotations (engineering DNA);
+ *                             Mono in tracked caps is the label voice for
+ *                             eyebrows and title-block lettering
  */
 
 @import '@fontsource/homenaje/index.css';
-@import '@fontsource-variable/bricolage-grotesque/index.css';
+@import '@fontsource/barlow/500.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
 @import '@fontsource/ibm-plex-sans/400.css';
 @import '@fontsource/ibm-plex-sans/500.css';
 @import '@fontsource/ibm-plex-sans/600.css';
@@ -38,9 +42,11 @@
   --ekx-hairline-strong: #213230;
 
   --ekx-font-brand: 'Homenaje', sans-serif;
-  --ekx-font-heading: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', sans-serif;
+  --ekx-font-heading: 'Barlow', system-ui, sans-serif;
   --ekx-font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --ekx-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  /* Drafting-label voice: tracked uppercase mono for eyebrows & title blocks. */
+  --ekx-font-label: var(--ekx-font-mono);
 
   /* Light palette (placeholder until the light iteration; uses light-core brand values) */
   --ifm-color-primary: #0e9488;
@@ -106,7 +112,7 @@ body {
 }
 
 h1, h2, h3 {
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 /* ---- Navbar: drafting-desk header --------------------------------------- */

@@ -49,8 +49,8 @@ const VERTICAL_BREAKPOINT = 620;
 
 /* ---- layout sheets ------------------------------------------------------ */
 
-/* Canvas heights leave room below the core for its pulse glow (r × the 1.07
-   animation scale) so it fades out inside the viewport instead of clipping. */
+/* Canvas heights leave breathing room below the core's survey ring so the
+   sheet doesn't crowd its bottom edge. */
 const H = {
   canvas: {w: 740, h: 342},
   portY: 38,
@@ -167,10 +167,9 @@ function PillarNode(props: NodeProps) {
   const {lines, color, shape, out, ins} = props.data as unknown as PillarData;
   const {w, h} = PILLAR;
   const gradId = `ekx-plate-${props.id}`;
+  const d = pillarPath(shape);
   return (
-    <div
-      className={styles.pillar}
-      style={{width: w, height: h, filter: `drop-shadow(0 12px 22px ${color}33)`}}>
+    <div className={styles.pillar} style={{width: w, height: h}}>
       <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{display: 'block', overflow: 'visible'}}>
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
@@ -178,7 +177,12 @@ function PillarNode(props: NodeProps) {
             <stop offset="1" stopColor="#0a1211" />
           </linearGradient>
         </defs>
-        <path d={pillarPath(shape)} fill={`url(#${gradId})`} stroke={`${color}73`} strokeWidth="1.25" />
+        <path d={d} fill={`url(#${gradId})`} />
+        {/* Pen trace pressed into the sheet: a dark groove offset below the
+            line, a tight ink bleed hugging it, then the crisp stroke. */}
+        <path d={d} fill="none" stroke="#000" strokeOpacity="0.4" strokeWidth="1.4" transform="translate(0.7 1.1)" />
+        <path d={d} fill="none" stroke={color} strokeOpacity="0.14" strokeWidth="3" />
+        <path d={d} fill="none" stroke={color} strokeOpacity="0.8" strokeWidth="1.35" />
       </svg>
       <div className={styles.pillarText}>
         <span>{lines[0]}</span>
@@ -213,7 +217,7 @@ type PortData = {icon: string; color: string; label: string; out: Position};
 function PortNode(props: NodeProps) {
   const {icon, color, label, out} = props.data as unknown as PortData;
   return (
-    <div className={styles.port} style={{borderColor: `${color}59`, color}} title={label}>
+    <div className={styles.port} style={{borderColor: `${color}80`, color}} title={label}>
       <svg
         width="18"
         height="18"
@@ -227,17 +231,15 @@ function PortNode(props: NodeProps) {
   );
 }
 
-/** Full-canvas drafting backdrop: survey circle around the core, glows. */
+/** Full-canvas drafting backdrop: the dashed survey circle around the core. */
 type BackdropData = {
   canvas: {w: number; h: number};
   core: {x: number; y: number};
   ring: number;
-  pulse: number;
-  glows: {id: string; color: string; x: number; y: number; r: number}[];
 };
 
 function BackdropNode(props: NodeProps) {
-  const {canvas, core, ring, pulse, glows} = props.data as unknown as BackdropData;
+  const {canvas, core, ring} = props.data as unknown as BackdropData;
   return (
     <svg
       className={styles.backdrop}
@@ -245,31 +247,14 @@ function BackdropNode(props: NodeProps) {
       height={canvas.h}
       viewBox={`0 0 ${canvas.w} ${canvas.h}`}
       style={{overflow: 'visible'}}>
-      <defs>
-        <radialGradient id="ekx-glow-core" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor={TEAL} stopOpacity="0.62" />
-          <stop offset="52%" stopColor={TEAL} stopOpacity="0.13" />
-          <stop offset="100%" stopColor={TEAL} stopOpacity="0" />
-        </radialGradient>
-        {glows.map((g) => (
-          <radialGradient key={g.id} id={`ekx-glow-${g.id}`} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={g.color} stopOpacity="0.5" />
-            <stop offset="100%" stopColor={g.color} stopOpacity="0" />
-          </radialGradient>
-        ))}
-      </defs>
-      <circle cx={core.x} cy={core.y} r={ring} fill="none" stroke={TEAL} strokeOpacity="0.11" strokeDasharray="1 9" />
-      <circle className={styles.corePulse} cx={core.x} cy={core.y} r={pulse} fill="url(#ekx-glow-core)" />
-      {glows.map((g) => (
-        <circle key={g.id} cx={g.x} cy={g.y} r={g.r} fill={`url(#ekx-glow-${g.id})`} />
-      ))}
+      <circle cx={core.x} cy={core.y} r={ring} fill="none" stroke={TEAL} strokeOpacity="0.18" strokeDasharray="1 9" />
     </svg>
   );
 }
 
 /* ---- custom flow edge -----------------------------------------------------
-   Rounded orthogonal connectors: a faint solid bed plus an animated dashed
-   flow with a gradient whitening toward the core. Kinds:
+   Rounded orthogonal connectors drawn like pen lines: a solid ink run plus a
+   quiet animated dash riding it (same colour — no gradients, no glow). Kinds:
    - straight: direct segment between handles.
    - corner:   L shape — along the source axis, one rounded turn, into the
                target side.
@@ -282,7 +267,7 @@ type FlowKind = 'straight' | 'corner' | 'trunk' | 'join';
 type FlowData = {color: string; kind: FlowKind; trunkX?: number};
 
 function FlowEdge(props: EdgeProps) {
-  const {id, sourceX, sourceY, targetX, targetY} = props;
+  const {sourceX, sourceY, targetX, targetY} = props;
   const {color, kind, trunkX = 0} = props.data as unknown as FlowData;
   const pts: Pt[] =
     kind === 'corner'
@@ -294,33 +279,10 @@ function FlowEdge(props: EdgeProps) {
           : [[sourceX, sourceY], [targetX, targetY]];
   const d = orthoPath(pts, 16);
   const [ex, ey] = pts[pts.length - 1];
-  /* Joins merge into the trunk mid-run, so they stay solid; every path that
-     reaches the core whitens toward it. userSpaceOnUse keeps the gradient
-     visible on purely vertical/horizontal segments (zero-area bounding box). */
-  const solid = kind === 'join';
-  const gradId = `ekx-flow-${id}`;
   return (
     <g>
-      {!solid && (
-        <defs>
-          <linearGradient
-            id={gradId}
-            gradientUnits="userSpaceOnUse"
-            x1={sourceX}
-            y1={sourceY}
-            x2={ex}
-            y2={ey}>
-            <stop offset="0" stopColor={color} stopOpacity="0.85" />
-            <stop offset="1" stopColor="#eaf7f4" stopOpacity="0.95" />
-          </linearGradient>
-        </defs>
-      )}
       <path className={styles.streamBase} d={d} style={{stroke: color}} />
-      <path
-        className={styles.streamDash}
-        d={d}
-        style={solid ? {stroke: color, strokeOpacity: 0.85} : {stroke: `url(#${gradId})`}}
-      />
+      <path className={styles.streamDash} d={d} style={{stroke: color}} />
       {kind === 'join' && <circle cx={ex} cy={ey} r="2.6" fill={color} fillOpacity="0.9" />}
     </g>
   );
@@ -464,14 +426,6 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
         canvas: H.canvas,
         core: H.core,
         ring: 48,
-        pulse: 70,
-        glows: (['gold', 'blue', 'teal'] as PillarKey[]).map((key) => ({
-          id: key,
-          color: PILLAR_DEFS[key].color,
-          x: H.x[key],
-          y: H.pillarY,
-          r: 54,
-        })),
       } satisfies BackdropData,
     },
     {
@@ -569,14 +523,6 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         canvas: V.canvas,
         core: V.core,
         ring: 46,
-        pulse: 64,
-        glows: order.map((key) => ({
-          id: key,
-          color: PILLAR_DEFS[key].color,
-          x: V.x,
-          y: V.rows[key],
-          r: 46,
-        })),
       } satisfies BackdropData,
     },
     {
