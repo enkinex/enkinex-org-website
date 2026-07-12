@@ -192,8 +192,7 @@ export default function LibraryCatalog(): React.ReactElement {
         A curated catalog of KCL libraries
       </Heading>
       <p className={styles.lead}>
-        Each pillar of the framework is delivered as typed, composable KCL — drafted in the
-        open and catalogued here, sheet by sheet.
+        Each pillar of the framework is delivered as typed, composable KCL code module.
       </p>
 
       {GROUPS.map((group) => (

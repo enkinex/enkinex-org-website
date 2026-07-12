@@ -86,9 +86,10 @@
   position: relative;
   width: 100%;
   margin-top: 6px;
-  /* Regular padding all around: the diagram canvas carries equal top and
-     bottom margins itself, so the frame keeps an even reveal. */
-  padding: clamp(14px, 2.8vw, 30px) clamp(12px, 2.6vw, 26px);
+  /* Half padding at the bottom: the survey ring around the symbol already
+     enlarges the canvas below it, so the frame compensates to keep the
+     reveal looking even. */
+  padding: clamp(14px, 2.8vw, 30px) clamp(12px, 2.6vw, 26px) clamp(7px, 1.4vw, 15px);
   border: 1px solid var(--ekx-hairline);
   border-radius: 20px;
   background: radial-gradient(120% 120% at 50% 0%, var(--ekx-depth-1) 0%, var(--ekx-depth-0) 70%);
@@ -136,6 +137,13 @@
 }
 
 @media (max-width: 700px) {
+  /* The viewport-relative clamps bottom out too tight on phones and the
+     sheet reads as stuck to the frame — double the reveal there (bottom
+     still halved against the survey ring's extra room). */
+  .board {
+    padding: 28px 24px 14px;
+  }
+
   .diagramFallback {
     max-width: 400px;
     margin: 0 auto;
