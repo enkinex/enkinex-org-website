@@ -18,11 +18,11 @@ import styles from './styles.module.css';
  *
  * Horizontal (wide containers): an inverted org chart that reads top-down
  * with the data flow. Level 1 is the concept ports (three per pillar);
- * level 2 is the pillar row (the centre pillar's wedge plate is vertically
- * mirrored so its slanted edges run parallel to its neighbours'); level 3
- * is the Enkinex symbol alone at the bottom. Side pillars reach the symbol
- * with rounded L connectors into its left/right rims; the centre pillar
- * streams straight down into its top.
+ * level 2 is the pillar row of rounded-rectangle plates; level 3 is the
+ * Enkinex symbol alone at the bottom. The three levels sit on equidistant
+ * drawn guideline rows with equal sheet margins above the icons and below
+ * the symbol. Side pillars reach the symbol with rounded L connectors into
+ * its left/right rims; the centre pillar streams straight down into its top.
  *
  * Vertical (narrow containers): a step-by-step flow. The pillars become
  * rounded rows stacked top to bottom, two ports fork to the right of each
@@ -36,8 +36,6 @@ const BLUE = '#5b8df0';
 const GOLD = '#e6b85a';
 
 const PILLAR = {w: 176, h: 60};
-/* Horizontal inset of the wedge plates' slanted sides. */
-const SKEW = 18;
 /* Core diameter matches the pillar height so the levels feel balanced. */
 const CORE = {w: 60, h: 60};
 const PORT = 36;
@@ -49,24 +47,36 @@ const VERTICAL_BREAKPOINT = 620;
 
 /* ---- layout sheets ------------------------------------------------------ */
 
-/* Canvas heights leave breathing room below the core's survey ring so the
-   sheet doesn't crowd its bottom edge. */
+/* The three levels sit on drawn guideline rows 112px apart (the average of
+   the old uneven gaps, snapped to the 8px grid), with a 20px sheet margin
+   above the icon tops and below the symbol circle alike. */
 const H = {
-  canvas: {w: 740, h: 342},
+  canvas: {w: 740, h: 312},
   portY: 38,
   portDx: 84,
-  pillarY: 126,
+  pillarY: 150,
   x: {blue: 118, gold: 370, teal: 622},
-  core: {x: 370, y: 266},
+  core: {x: 370, y: 262},
+  /* Construction lines: the icon and pillar guideline rows (the symbol row
+     is already marked by its survey ring), plus two verticals through the
+     empty corridors between the pillars — never along a connector. */
+  guides: {h: [38, 150], v: [244, 496]},
 };
 
+/* A 4x4 sheet: four equal 116px rows, each content row centred in its band.
+   The pillars fill the two central columns (w = 2 x pillar width), the ports
+   end flush with the right edge, and the trunk rides the first column's
+   left boundary (inset 4px so strokes and junction dots stay unclipped). */
 const V = {
-  canvas: {w: 330, h: 476},
-  x: 150,
-  rows: {gold: 52, teal: 168, blue: 284},
-  core: {x: 150, y: 406},
-  trunkX: 20,
-  port: {x: 296, dy: 30},
+  canvas: {w: 352, h: 464},
+  x: 176,
+  rows: {gold: 58, teal: 174, blue: 290},
+  core: {x: 176, y: 406},
+  trunkX: 4,
+  port: {x: 334, dy: 30},
+  /* Construction lines: the three row boundaries of the 4x4 grid plus the
+     sheet's vertical centreline — the trunk column carries the connectors. */
+  guides: {h: [116, 232, 348], v: [176]},
 };
 
 /* Tabler icons (MIT), inlined as path markup — stroke follows currentColor. */
@@ -134,21 +144,10 @@ function orthoPath(pts: Pt[], r: number): string {
   return d + `L ${ex.toFixed(2)} ${ey.toFixed(2)}`;
 }
 
-type PillarShape = 'apex-inverted' | 'lean-right' | 'lean-left' | 'row';
-
-/** Wedge-plate quads (skew s=18) plus the rounded-rectangle row variant. */
-function pillarPath(shape: PillarShape): string {
+/** Pillar plate: a rounded rectangle with tight engineer-board corners. */
+function pillarPath(): string {
   const {w, h} = PILLAR;
-  const s = SKEW;
-  const pts: Pt[] =
-    shape === 'apex-inverted'
-      ? [[s, 0], [w - s, 0], [w, h], [0, h]]
-      : shape === 'lean-right'
-        ? [[s, 0], [w, 0], [w - s, h], [0, h]]
-        : shape === 'lean-left'
-          ? [[0, 0], [w - s, 0], [w, h], [s, h]]
-          : [[0, 0], [w, 0], [w, h], [0, h]];
-  return roundedPolygon(pts, shape === 'row' ? 12 : 10);
+  return roundedPolygon([[0, 0], [w, 0], [w, h], [0, h]], 8);
 }
 
 /* ---- custom nodes -------------------------------------------------------- */
@@ -158,16 +157,15 @@ type HandleSpec = {position: Position; style?: React.CSSProperties};
 type PillarData = {
   lines: [string, string];
   color: string;
-  shape: PillarShape;
   out: HandleSpec;
   ins: HandleSpec[];
 };
 
 function PillarNode(props: NodeProps) {
-  const {lines, color, shape, out, ins} = props.data as unknown as PillarData;
+  const {lines, color, out, ins} = props.data as unknown as PillarData;
   const {w, h} = PILLAR;
   const gradId = `ekx-plate-${props.id}`;
-  const d = pillarPath(shape);
+  const d = pillarPath();
   return (
     <div className={styles.pillar} style={{width: w, height: h}}>
       <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{display: 'block', overflow: 'visible'}}>
@@ -231,15 +229,18 @@ function PortNode(props: NodeProps) {
   );
 }
 
-/** Full-canvas drafting backdrop: the dashed survey circle around the core. */
+/** Full-canvas drafting backdrop: the dashed survey circle around the core
+    plus the dotted construction guidelines the content rows sit on. */
 type BackdropData = {
   canvas: {w: number; h: number};
   core: {x: number; y: number};
   ring: number;
+  guides: {h: number[]; v: number[]};
 };
 
 function BackdropNode(props: NodeProps) {
-  const {canvas, core, ring} = props.data as unknown as BackdropData;
+  const {canvas, core, ring, guides} = props.data as unknown as BackdropData;
+  const guideProps = {stroke: TEAL, strokeOpacity: 0.18, strokeDasharray: '1 9'};
   return (
     <svg
       className={styles.backdrop}
@@ -247,6 +248,12 @@ function BackdropNode(props: NodeProps) {
       height={canvas.h}
       viewBox={`0 0 ${canvas.w} ${canvas.h}`}
       style={{overflow: 'visible'}}>
+      {guides.h.map((y) => (
+        <line key={`h-${y}`} x1="0" y1={y} x2={canvas.w} y2={y} {...guideProps} />
+      ))}
+      {guides.v.map((x) => (
+        <line key={`v-${x}`} x1={x} y1="0" x2={x} y2={canvas.h} {...guideProps} />
+      ))}
       <circle cx={core.x} cy={core.y} r={ring} fill="none" stroke={TEAL} strokeOpacity="0.18" strokeDasharray="1 9" />
     </svg>
   );
@@ -361,9 +368,9 @@ const PILLAR_DEFS: Record<
   },
   blue: {
     color: BLUE,
-    lines: ['Composable Mesh', 'Architecture'],
+    lines: ['Composable Flow', 'Architecture'],
     icons: [
-      {icon: 'topology-star-3', label: 'Mesh topology'},
+      {icon: 'topology-star-3', label: 'Flow topology'},
       {icon: 'hexagons', label: 'Composable domains'},
       {icon: 'stack-2', label: 'Layered platform'},
     ],
@@ -401,14 +408,6 @@ function portEdge(
 
 /** Inverted org chart: ports on level 1, pillar row on level 2, symbol last. */
 function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
-  const shapes: Record<PillarKey, PillarShape> = {
-    gold: 'apex-inverted',
-    blue: 'lean-right',
-    teal: 'lean-left',
-  };
-  /* The skew (s=18) shifts each plate's bottom-edge midpoint off the box
-     centre, so the stream leaves each plate plumb from its connecting edge. */
-  const bottomMid: Record<PillarKey, string> = {gold: '50%', blue: '44.9%', teal: '55.1%'};
   const streams: Record<PillarKey, {kind: FlowKind; coreHandle: string}> = {
     blue: {kind: 'corner', coreHandle: 'in-left'},
     gold: {kind: 'straight', coreHandle: 'in-top'},
@@ -426,6 +425,7 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
         canvas: H.canvas,
         core: H.core,
         ring: 48,
+        guides: H.guides,
       } satisfies BackdropData,
     },
     {
@@ -444,27 +444,9 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
   ];
   const edges: Edge[] = [];
 
-  /* Where each plate's top edge actually runs inside its bounding box: the
-     skewed sides pull one or both top corners in by SKEW. Connection points
-     divide that true edge into four equal segments, so the three connectors
-     are as far from each other as from the plate's top corners. */
-  const topEdge: Record<PillarKey, [number, number]> = {
-    gold: [SKEW, PILLAR.w - SKEW],
-    blue: [SKEW, PILLAR.w],
-    teal: [0, PILLAR.w - SKEW],
-  };
-
   for (const key of ['blue', 'gold', 'teal'] as PillarKey[]) {
     const def = PILLAR_DEFS[key];
     const cx = H.x[key];
-    const [edgeStart, edgeEnd] = topEdge[key];
-    const quarter = (edgeEnd - edgeStart) / 4;
-    /* Ports centre on the top edge's midpoint so the middle connector drops
-       plumb; the outer ports spread wider than their connection points and
-       the pipe edges step inward, echoing the apex arrangement of the
-       triangle version. The middle port sits a touch higher, as it did
-       there. */
-    const edgeMidX = cx - PILLAR.w / 2 + edgeStart + 2 * quarter;
     nodes.push({
       id: `pillar-${key}`,
       type: 'pillar',
@@ -473,22 +455,26 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
       data: {
         lines: def.lines,
         color: def.color,
-        shape: shapes[key],
-        out: {position: Position.Bottom, style: {left: bottomMid[key]}},
+        out: {position: Position.Bottom},
+        /* Connection points quarter the plate's top edge, so the three
+           connectors are as far from each other as from the corners. */
         ins: [1, 2, 3].map((i) => ({
           position: Position.Top,
-          style: {left: `${(((edgeStart + i * quarter) / PILLAR.w) * 100).toFixed(2)}%`},
+          style: {left: `${i * 25}%`},
         })),
       } satisfies PillarData,
     });
     def.icons.forEach((p, i) => {
       const id = `port-${key}-${i + 1}`;
+      /* All three ports sit on the icon guideline row, centred over the
+         plate; the outer ones spread wider than their connection points so
+         the pipe edges step inward, echoing the old apex arrangement. */
       nodes.push({
         id,
         type: 'port',
         position: {
-          x: edgeMidX + (i - 1) * H.portDx - PORT / 2,
-          y: H.portY - (i === 1 ? 4 : 0) - PORT / 2,
+          x: cx + (i - 1) * H.portDx - PORT / 2,
+          y: H.portY - PORT / 2,
         },
         ...staticNode,
         data: {icon: p.icon, color: def.color, label: p.label, out: Position.Bottom} satisfies PortData,
@@ -523,6 +509,7 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
         canvas: V.canvas,
         core: V.core,
         ring: 46,
+        guides: V.guides,
       } satisfies BackdropData,
     },
     {
@@ -546,7 +533,6 @@ function buildVertical(): {nodes: Node[]; edges: Edge[]} {
       data: {
         lines: def.lines,
         color: def.color,
-        shape: 'row',
         out: {position: Position.Left},
         /* The row's right side divides into three equal segments: the two
            connection points sit as far from each other as from the row's

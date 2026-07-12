@@ -54,6 +54,17 @@ const GROUPS: Group[] = [
         github: 'https://github.com/enkinex/enkinex-ossie',
         status: 'in-progress',
       },
+      {
+        name: 'Enkinex OKF',
+        ref: 'SDD-02',
+        version: 'v0.1-draft',
+        description:
+          'A modular KCL implementation of the Open Knowledge Format — author, type-check, and validate vendor-neutral knowledge shipped as plain Markdown with YAML frontmatter, readable by humans and agents alike.',
+        docs: '/docs/semantic/okf/overview',
+        standard: 'https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf',
+        github: 'https://github.com/enkinex/enkinex-okf',
+        status: 'in-progress',
+      },
     ],
   },
   {
@@ -85,21 +96,21 @@ const GROUPS: Group[] = [
     ],
   },
   {
-    title: 'Composable Mesh Architecture',
+    title: 'Composable Flow Architecture',
     color: BLUE,
     items: [
       {
-        name: 'Declarative Pipelines',
-        ref: 'CMA-01',
+        name: 'Enkinex Pipelines',
+        ref: 'CFA-01',
         description: 'Higher level adapters for emerging declarative approaches.',
-        docs: '/docs/composable-architecture/declarative-pipeline/overview',
+        docs: '/docs/composable-architecture/pipelines/overview',
         status: 'todo',
       },
       {
-        name: 'Declarative Applications',
-        ref: 'CMA-02',
+        name: 'Enkinex Applications',
+        ref: 'CFA-02',
         description: 'KCL standard cloud-native and OpenAPI applications.',
-        docs: '/docs/composable-architecture/declarative-application/overview',
+        docs: '/docs/composable-architecture/applications/overview',
         status: 'todo',
       },
     ],

@@ -112,7 +112,8 @@
   display: flex;
   flex-direction: column;
   border: 1px solid var(--ekx-hairline-strong);
-  border-radius: 12px;
+  /* Tighter corners than the first draft — closer to a drawn sheet. */
+  border-radius: 8px;
   background: var(--ekx-depth-1);
   /* Pressed pen border: a dark groove instead of any glow. */
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);

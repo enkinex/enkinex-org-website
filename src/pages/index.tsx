@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 export default function Home(): ReactNode {
   return (
-    <Layout description="Semantic & Governance as Code — three foundational pillars converge at the Enkinex API to establish a semantic-driven framework.">
+    <Layout description="Semantic & Governance as Code — Three foundational pillars converge at the Enkinex Framework.">
       <main className={styles.hero}>
         <p className={styles.eyebrow}>
           <span className={styles.eyebrowTick} aria-hidden="true" />
