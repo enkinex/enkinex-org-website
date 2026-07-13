@@ -16,7 +16,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://enkinex.com',
+  url: 'https://enkinex.org',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -27,6 +27,45 @@ const config: Config = {
   projectName: 'enkinex-website', // Usually your repo name.
 
   onBrokenLinks: 'throw',
+
+  headTags: [
+    // PNG favicon fallback for Google Search (must be a multiple of 48px).
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '96x96',
+        href: '/img/social/enkinex-favicon-96.png',
+      },
+    },
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Enkinex',
+        url: 'https://enkinex.org',
+        logo: 'https://enkinex.org/img/social/enkinex-logo-structured-data.png',
+        slogan: 'Semantic & Governance as Code',
+        sameAs: [
+          'https://github.com/enkinex',
+          'https://www.linkedin.com/company/enkinex',
+        ],
+      }),
+    },
+    {
+      tagName: 'script',
+      attributes: {type: 'application/ld+json'},
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Enkinex',
+        url: 'https://enkinex.org',
+      }),
+    },
+  ],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -64,8 +103,30 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Social share card (1200x630).
-    image: 'img/enkinex-social.png',
+    // Social share card (1200x630, all content inside the centred 630x630
+    // square so 1:1 crops — Google, WhatsApp thumbs — keep the full lockup).
+    image: 'img/social/enkinex-og-card.png',
+    metadata: [
+      {property: 'og:type', content: 'website'},
+      {property: 'og:site_name', content: 'Enkinex'},
+      // Declared dimensions let LinkedIn/WhatsApp render the card on the
+      // first (async) scrape instead of caching a blank preview.
+      {property: 'og:image:width', content: '1200'},
+      {property: 'og:image:height', content: '630'},
+      {
+        property: 'og:image:alt',
+        content: 'Enkinex — Semantic & Governance as Code',
+      },
+      // No global twitter:title/description — X falls back to each page's
+      // og:title/og:description, keeping shares page-accurate.
+      // Dedicated 2:1 card so X never crops; must be an absolute URL.
+      {name: 'twitter:image', content: 'https://enkinex.org/img/social/enkinex-x-card.png'},
+      {
+        name: 'twitter:image:alt',
+        content: 'Enkinex — Semantic & Governance as Code',
+      },
+      // {name: 'twitter:site', content: '@enkinex'}, // once the X account exists
+    ],
     colorMode: {
       // First iteration ships the dark theme only; the light iteration
       // will re-enable the switch.
@@ -100,7 +161,7 @@ const config: Config = {
           html: `<a class="footer-icon-link" href="https://www.linkedin.com/company/enkinex" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 11v5m0-8v.01M12 16v-5m4 5v-3a2 2 0 1 0-4 0"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/></g></svg></a>`,
         },
       ],
-      copyright: `Copyright ${new Date().getFullYear()} Enkinex Data Ltda`,
+      copyright: `Copyright ${new Date().getFullYear()} Enkinex Data`,
     },
     prism: {
       theme: prismThemes.github,

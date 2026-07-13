@@ -9,7 +9,7 @@ import styles from './index.module.css';
 
 export default function Home(): ReactNode {
   return (
-    <Layout description="Semantic & Governance as Code — Three foundational pillars converge at the Enkinex Framework.">
+    <Layout description="Semantic & Governance as Code — the open framework that turns data standards into typed, validated building blocks.">
       <main className={styles.hero}>
         <p className={styles.eyebrow}>
           <span className={styles.eyebrowTick} aria-hidden="true" />
@@ -17,10 +17,9 @@ export default function Home(): ReactNode {
         </p>
 
         <Heading as="h1" className={styles.title}>
-          Three foundational pillars
-          <br className={styles.brThree} /> converge at
-          <br className={styles.brTwo} /> the{' '}
-          <span className={styles.titleTeal}>Enkinex&nbsp;Framework</span>.
+          The <span className={styles.titleTeal}>Enkinex&nbsp;Framework</span> turns
+          <br className={styles.brThree} /> open data standards
+          <br className={styles.brTwo} /> into typed, composable code.
         </Heading>
 
         <div className={styles.board}>

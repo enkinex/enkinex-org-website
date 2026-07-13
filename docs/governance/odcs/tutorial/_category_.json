@@ -1,9 +1,4 @@
 {
   "label": "Tutorial",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "slug": "/governance/odcs/tutorial",
-    "description": "A hands-on port of the canonical ODCS full example into a typed, modular KCL project with Enkinex ODCS."
-  }
+  "position": 2
 }
