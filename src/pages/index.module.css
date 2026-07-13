@@ -59,25 +59,30 @@
 }
 
 /* Locked title breaks, measured against the real font at the 22px floor
-   (48px hero padding included, ~4% buffer for device rasterization):
-   the full sentence holds one line down to a 686px viewport, the 2-line
-   split to 434px, the 3-line split to 313px. Tiers: 1 line ≥720px,
-   2 lines 450–719px, 3 lines ≤449px. The break after "at" is shared by
-   both wrapped tiers; the break after "pillars" is 3-line only. */
-.brTwo,
+   (48px hero padding included): the sentence never fits one line inside the
+   hero, so it is set as 2 balanced lines at every desktop width — the break
+   before "into" keeps the verb phrase intact and is shared by both tiers.
+   Line 1 holds down to a 560px viewport; the 3-line split (extra break
+   after "turns") holds to 360px, below which the floor font steps down. */
+.brTwo {
+  display: inline;
+}
+
 .brThree {
   display: none;
 }
 
-@media (max-width: 719px) {
-  .brTwo {
+@media (max-width: 559px) {
+  .brThree {
     display: inline;
   }
 }
 
-@media (max-width: 449px) {
-  .brThree {
-    display: inline;
+/* Below the 3-line floor the longest line ("The Enkinex Framework turns")
+   no longer fits at 22px; step the font down instead of soft-wrapping. */
+@media (max-width: 359px) {
+  .title {
+    font-size: 19px;
   }
 }
 

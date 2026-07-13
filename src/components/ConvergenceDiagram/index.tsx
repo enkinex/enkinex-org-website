@@ -55,7 +55,9 @@ const H = {
   portY: 38,
   portDx: 84,
   pillarY: 150,
-  x: {blue: 118, gold: 370, teal: 622},
+  /* Left-to-right slots follow the vertical layout's layered order:
+     semantic (gold), contract (teal), composable (blue). */
+  x: {gold: 118, teal: 370, blue: 622},
   core: {x: 370, y: 262},
   /* Construction lines: the icon and pillar guideline rows (the symbol row
      is already marked by its survey ring), plus two verticals through the
@@ -409,9 +411,9 @@ function portEdge(
 /** Inverted org chart: ports on level 1, pillar row on level 2, symbol last. */
 function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
   const streams: Record<PillarKey, {kind: FlowKind; coreHandle: string}> = {
-    blue: {kind: 'corner', coreHandle: 'in-left'},
-    gold: {kind: 'straight', coreHandle: 'in-top'},
-    teal: {kind: 'corner', coreHandle: 'in-right'},
+    gold: {kind: 'corner', coreHandle: 'in-left'},
+    teal: {kind: 'straight', coreHandle: 'in-top'},
+    blue: {kind: 'corner', coreHandle: 'in-right'},
   };
 
   const nodes: Node[] = [
@@ -444,7 +446,7 @@ function buildHorizontal(): {nodes: Node[]; edges: Edge[]} {
   ];
   const edges: Edge[] = [];
 
-  for (const key of ['blue', 'gold', 'teal'] as PillarKey[]) {
+  for (const key of ['gold', 'teal', 'blue'] as PillarKey[]) {
     const def = PILLAR_DEFS[key];
     const cx = H.x[key];
     nodes.push({
