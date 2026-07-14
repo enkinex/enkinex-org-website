@@ -35,7 +35,7 @@ Running it without a name initializes the **current** directory as a module; pas
 Use [`kcl mod add`](https://www.kcl-lang.io/docs/tools/cli/package-management/command-reference/add) to pull the library straight from its GitHub repository. Pin it to a branch, tag, or commit so builds stay reproducible:
 
 ```bash
-kcl mod add --git https://github.com/enkinex/enkinex-odcs --branch main
+kcl mod add --git https://github.com/enkinex/enkinex-odcs --commit 'fe8b0b1'
 ```
 
 That records the dependency under `[dependencies]` in your `kcl.mod`. Whenever you later change `kcl.mod` — bumping the pinned commit, for instance — resync the lockfile with [`kcl mod update`](https://www.kcl-lang.io/docs/tools/cli/package-management/command-reference/update):
@@ -54,7 +54,7 @@ version = "3.1.0-draft"
 description = "Enkinex KCL implementation for ODCS full example"
 
 [dependencies]
-enkinex_odcs = { git = "https://github.com/enkinex/enkinex-odcs", branch = "main" }
+enkinex_odcs = { git = "https://github.com/enkinex/enkinex-odcs", commit = "fe8b0b1" }
 ```
 
 ### The project structure we are building

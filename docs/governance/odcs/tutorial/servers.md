@@ -6,13 +6,12 @@ sidebar_custom_props:
 
 # Servers
 
-The `server/` group records where the data physically lives. The library ships a shared `Server` base plus more than thirty typed server schemas (postgres, bigquery, snowflake, kafka, s3, and the rest), and the `$type` field selects the variant. For this contract we need a single Postgres server, declared in [`server/postgres.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/server/postgres.k):
+The `server/` group records where the data physically lives. The library ships a general `Server` schema plus more than thirty typed subschemas of it (postgres, bigquery, snowflake, kafka, s3, and the rest), one per documented `type` value. For this contract we need a single Postgres server, declared in [`server/postgres.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/server/postgres.k) using the `PostgresServer` subschema:
 
 ```kcl
-import enkinex_odcs.server.common as common_server
+import enkinex_odcs.server.postgres
 
-LocalPostgresServer = common_server.Server {
-    $type = "postgres"
+LocalPostgresServer = postgres.PostgresServer {
     server = "my-postgres"
     host = "localhost"
     port = 5432
@@ -21,7 +20,7 @@ LocalPostgresServer = common_server.Server {
 }
 ```
 
-Because the server catalog is typed, the fields relevant to Postgres — `host`, `port`, `database`, `$schema` — are the ones the schema expects for that `$type`. Defining servers once and referencing them across contracts is one of the concrete wins of keeping governance in code rather than in copied YAML.
+`PostgresServer` already freezes `$type = "postgres"`, so we no longer set it by hand, and it declares exactly the fields Postgres requires — `host`, `port`, `database`, `$schema` — so forgetting one is a compile-time error rather than a runtime surprise. Because every typed subschema extends the general `Server`, the instance drops straight into `DataContract.servers`, and the same per-type validation also fires when a contract arrives as plain YAML. Defining servers once and referencing them across contracts is one of the concrete wins of keeping governance in code rather than in copied YAML.
 
 ## Composing the root `odcs.k`
 
