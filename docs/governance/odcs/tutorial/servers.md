@@ -22,7 +22,7 @@ LocalPostgresServer = postgres.PostgresServer {
 
 `PostgresServer` already freezes `$type = "postgres"`, so we no longer set it by hand, and it declares exactly the fields Postgres requires — `host`, `port`, `database`, `$schema` — so forgetting one is a compile-time error rather than a runtime surprise. Because every typed subschema extends the general `Server`, the instance drops straight into `DataContract.servers`, and the same per-type validation also fires when a contract arrives as plain YAML. Defining servers once and referencing them across contracts is one of the concrete wins of keeping governance in code rather than in copied YAML.
 
-## Composing the root `odcs.k`
+## Composing the root `contract.k`
 
 One more local import — the `server` module — joins the root file, and the `servers` field joins the fields we already had:
 

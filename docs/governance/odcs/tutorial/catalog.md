@@ -322,7 +322,7 @@ PaymentMetricsTable = schema_object.SchemaObject {
 }
 ```
 
-## The complete `odcs.k`
+## The complete `contract.k`
 
 Adding the catalog imports and the `$schema` field completes the root file. This is the whole contract — every field points at a named, typed value declared in its own module, and the two tables from `catalog/` populate `$schema`:
 

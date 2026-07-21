@@ -179,9 +179,9 @@ TeamsSupport = support.Support {
 }
 ```
 
-## Composing the root `odcs.k`
+## Composing the root `contract.k`
 
-With the `contract/` group written, the root file starts to take shape. It imports each contract module under a local alias and references the named values — nothing is redefined inline. At this stage `odcs.k` wires in the fundamentals (domain, version, status, id, tenant, tags, and the creation timestamp) together with everything we authored above:
+With the `contract/` group written, the root file starts to take shape. It imports each contract module under a local alias and references the named values — nothing is redefined inline. At this stage `contract.k` wires in the fundamentals (domain, version, status, id, tenant, tags, and the creation timestamp) together with everything we authored above:
 
 ```kcl
 import enkinex_odcs.odcs

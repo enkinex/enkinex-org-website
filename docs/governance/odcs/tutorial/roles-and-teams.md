@@ -75,7 +75,7 @@ DaustinMember = team.TeamMember {
 
 The individual members do not yet form a team. We assemble them into a `Team` back in `odcs.k`, which keeps the member definitions independent of how any one contract groups them.
 
-## Composing the root `odcs.k`
+## Composing the root `contract.k`
 
 Now we extend the root file from the previous section. Two new local imports appear — the `iam` modules — plus one library import, `iam.team`, because the `Team` wrapper is assembled inline. The `team` and `roles` fields join the ones we already had:
 
