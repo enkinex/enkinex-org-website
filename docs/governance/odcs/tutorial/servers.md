@@ -6,7 +6,7 @@ sidebar_custom_props:
 
 # Servers
 
-The `server/` group records where the data physically lives. The library ships a general `Server` schema plus more than thirty typed subschemas of it (postgres, bigquery, snowflake, kafka, s3, and the rest), one per documented `type` value. For this contract we need a single Postgres server, declared in [`server/postgres.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/server/postgres.k) using the `PostgresServer` subschema:
+The `server/` group records where the data physically lives. The library ships a general `Server` schema plus more than thirty typed subschemas of it (postgres, bigquery, snowflake, kafka, s3, and the rest), one per documented `type` value. For this contract we need a single Postgres server, declared in [`server/postgres.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/server/postgres.k) using the `PostgresServer` subschema:
 
 ```kcl
 import enkinex_odcs.server.postgres

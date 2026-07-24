@@ -14,7 +14,7 @@ This is where the modular approach earns its keep. Each column is written once a
 
 ## The receivers table
 
-[`catalog/receiver.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/catalog/receiver.k) declares four columns as `SchemaProperty` values and then assembles them into the `ReceiversMasterDataTable`. The primary key spans two columns — note `primaryKeyPosition` on `id` and `country_code` — and the `receiver_type` column carries a property-level relationship (a foreign key to a lookup table):
+[`catalog/receiver.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/catalog/receiver.k) declares four columns as `SchemaProperty` values and then assembles them into the `ReceiversMasterDataTable`. The primary key spans two columns — note `primaryKeyPosition` on `id` and `country_code` — and the `receiver_type` column carries a property-level relationship (a foreign key to a lookup table):
 
 ```kcl
 import enkinex_odcs.catalog.object as schema_object
@@ -103,7 +103,7 @@ The payoff is in the `properties` list: `ReceiverId`, `ReceiverCountry`, `Receiv
 
 ## The payments table
 
-[`catalog/payment.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/catalog/payment.k) is richer. It shows the rest of what the catalog module can express: schema-level and property-level relationships, transformation metadata on a column, authoritative definitions attached to a property, and data-quality rules at both the property and the table level. The `DataQuality` schema comes from the library's `quality` module.
+[`catalog/payment.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/catalog/payment.k) is richer. It shows the rest of what the catalog module can express: schema-level and property-level relationships, transformation metadata on a column, authoritative definitions attached to a property, and data-quality rules at both the property and the table level. The `DataQuality` schema comes from the library's `quality` module.
 
 First, a couple of shared values — a list of authoritative definitions and a schema-level foreign key — declared once so the table can reference them:
 

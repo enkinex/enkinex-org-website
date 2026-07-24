@@ -34,7 +34,7 @@ Use [`kcl mod init`](https://www.kcl-lang.io/docs/tools/cli/package-management/c
 This creates the `kcl.mod` manifest, a `kcl.mod.lock` lockfile, and an initial `main.k`:
 
 ```bash
-kcl mod init enkinex-odcs-tutorial --version 3.1.0-rc1
+kcl mod init enkinex-odcs-tutorial --version 3.1.0
 ```
 
 Running it without a name initializes the **current** directory as a module; passing a name creates a subdirectory for
@@ -46,7 +46,7 @@ Use [`kcl mod add`](https://www.kcl-lang.io/docs/tools/cli/package-management/co
 straight from its GitHub repository. Pin it to a branch, tag, or commit so builds stay reproducible:
 
 ```bash
-kcl mod add --git https://github.com/enkinex/enkinex-odcs --tag 'v.3.1.0-rc1'
+kcl mod add --git https://github.com/enkinex/enkinex-odcs --tag 'v3.1.0'
 ```
 
 That records the dependency under `[dependencies]` in your `kcl.mod`. Whenever you later change `kcl.mod` resync the
@@ -64,11 +64,11 @@ those commands produce:
 [package]
 name = "enkinex-odcs-tutorial"
 edition = "0.12.7"
-version = "3.1.0-rc1"
+version = "3.1.0"
 description = "Enkinex ODCS Tutorial"
 
 [dependencies]
-enkinex_odcs = { git = "https://github.com/enkinex/enkinex-odcs", tag = "v3.1.0-rc1" }
+enkinex_odcs = { git = "https://github.com/enkinex/enkinex-odcs", tag = "v3.1.0" }
 ```
 
 ### The project structure we are building

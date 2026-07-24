@@ -23,11 +23,11 @@ kcl run contract.k --format yaml > contract.yaml   # YAML
 kcl run contract.k --format json > contract.json   # JSON
 ```
 
-The exported [`contract.yaml`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract.yaml) is the finished ODCS document, generated from your typed KCL — and this is where `apiVersion: v3.1.0` and `kind: DataContract` reappear, supplied by the schema defaults you never had to write.
+The exported [`contract.yaml`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract.yaml) is the finished ODCS document, generated from your typed KCL — and this is where `apiVersion: v3.1.0` and `kind: DataContract` reappear, supplied by the schema defaults you never had to write.
 
 ### The `just export` shortcut
 
-In the repository, the export step is wrapped in the [`Justfile`](https://github.com/enkinex/enkinex-odcs/blob/main/Justfile). Running:
+In the repository, the export step is wrapped in the [`Justfile`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/Justfile). Running:
 
 ```bash
 just export

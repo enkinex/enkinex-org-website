@@ -10,7 +10,7 @@ Everything under `contract/` describes the contract itself — who defines it, w
 
 ## The authoritative definition
 
-The contract points back at its own canonical source. That lives in [`contract/authoritative.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/authoritative.k):
+The contract points back at its own canonical source. That lives in [`contract/authoritative.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/authoritative.k):
 
 ```kcl
 import enkinex_odcs.common.authoritative
@@ -26,7 +26,7 @@ SampleAuthoritativeDefinition = authoritative.AuthoritativeDefinition {
 
 ## The description
 
-[`contract/description.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/description.k) fills in the `Description` schema and nests an `AuthoritativeDefinition` inside it — a privacy statement in this case:
+[`contract/description.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/description.k) fills in the `Description` schema and nests an `AuthoritativeDefinition` inside it — a privacy statement in this case:
 
 ```kcl
 import enkinex_odcs.contract.description
@@ -47,7 +47,7 @@ SampleContractDescription = description.Description {
 
 ## The price
 
-[`contract/price.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/price.k) is the smallest file in the project — the cost per unit of data:
+[`contract/price.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/price.k) is the smallest file in the project — the cost per unit of data:
 
 ```kcl
 import enkinex_odcs.contract.pricing
@@ -61,7 +61,7 @@ MegabyteUSD = pricing.Pricing {
 
 ## The custom properties
 
-Contracts can carry arbitrary key/value extensions. Note that a `CustomProperty` value can be a scalar or a list — the type system accepts both, as the last entry shows. This is [`contract/properties.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/properties.k):
+Contracts can carry arbitrary key/value extensions. Note that a `CustomProperty` value can be a scalar or a list — the type system accepts both, as the last entry shows. This is [`contract/properties.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/properties.k):
 
 ```kcl
 import enkinex_odcs.common.property
@@ -84,7 +84,7 @@ DataprocClusterProperty = property.CustomProperty {
 
 ## The service-level agreements
 
-The SLA block is where the modular approach starts to pay off. Each SLA is one `ServiceLevelAgreement` value, and different properties require different fields — a latency SLA carries a `unit` and an `element`, while an availability SLA is just a timestamp. Declaring each as its own named value keeps them readable and individually reusable. This is [`contract/sla.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/sla.k):
+The SLA block is where the modular approach starts to pay off. Each SLA is one `ServiceLevelAgreement` value, and different properties require different fields — a latency SLA carries a `unit` and an `element`, while an availability SLA is just a timestamp. Declaring each as its own named value keeps them readable and individually reusable. This is [`contract/sla.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/sla.k):
 
 ```kcl
 import enkinex_odcs.contract.sla
@@ -143,7 +143,7 @@ AnalyticsTimeOfAvailabilitySla = sla.ServiceLevelAgreement {
 
 ## The support channels
 
-Finally, [`contract/support.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/contract/support.k) lists where consumers can reach the owners. The Teams channel also shows a `CustomProperty` nested on a support entry, so the reuse of `common.property` carries down here too:
+Finally, [`contract/support.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/contract/support.k) lists where consumers can reach the owners. The Teams channel also shows a `CustomProperty` nested on a support entry, so the reuse of `common.property` carries down here too:
 
 ```kcl
 import enkinex_odcs.common.property
