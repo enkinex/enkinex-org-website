@@ -161,6 +161,7 @@
   color: var(--ekx-ink-faint);
 }
 
+.chipReleased,
 .chipProgress,
 .stampTodo {
   align-self: center;
@@ -176,9 +177,15 @@
   white-space: nowrap;
 }
 
-.chipProgress {
+/* Shipped: teal, the contract-lifecycle pillar's colour. */
+.chipReleased {
   color: var(--ekx-teal);
   border: 1px solid rgba(43, 196, 180, 0.4);
+}
+
+.chipProgress {
+  color: var(--ekx-blue);
+  border: 1px solid rgba(91, 141, 240, 0.4);
 }
 
 /* Rubber-stamped over the sheet: dashed, gold, slightly off-square. */

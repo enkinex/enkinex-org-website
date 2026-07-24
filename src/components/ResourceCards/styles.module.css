@@ -1,0 +1,116 @@
+/**
+ * Resource cards — the landing catalog's title block, shrunk to a
+ * three-across strip for library docs sheets.
+ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 32px;
+}
+
+@media (max-width: 996px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ekx-hairline-strong);
+  border-radius: 8px;
+  background: var(--ekx-depth-1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+/* Accent drives the icon, the reference line, and the hover border. */
+.teal {
+  --card-accent: var(--ekx-teal);
+  --card-accent-soft: rgba(43, 196, 180, 0.45);
+  --card-accent-wash: rgba(43, 196, 180, 0.06);
+}
+
+.blue {
+  --card-accent: var(--ekx-blue);
+  --card-accent-soft: rgba(91, 141, 240, 0.45);
+  --card-accent-wash: rgba(91, 141, 240, 0.06);
+}
+
+.gold {
+  --card-accent: var(--ekx-gold);
+  --card-accent-soft: rgba(230, 184, 90, 0.45);
+  --card-accent-wash: rgba(230, 184, 90, 0.06);
+}
+
+.card:hover {
+  border-color: var(--card-accent-soft);
+}
+
+.head {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--ekx-hairline);
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.head:hover {
+  background: var(--card-accent-wash);
+  text-decoration: none;
+  color: inherit;
+}
+
+.iconCell {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  flex: none;
+  border-right: 1px solid var(--ekx-hairline);
+  color: var(--card-accent);
+}
+
+.icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+}
+
+.nameCell {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--ekx-font-heading);
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: -0.005em;
+  color: var(--ekx-ink);
+}
+
+/* Drawing-number line, lettered small like a title-block field. */
+.ref {
+  font-family: var(--ekx-font-label);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+
+.desc {
+  flex: 1;
+  margin: 0;
+  padding: 12px 15px 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ekx-ink-soft);
+}
