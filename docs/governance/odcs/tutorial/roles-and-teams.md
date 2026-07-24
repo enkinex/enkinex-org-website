@@ -10,7 +10,7 @@ The `iam/` directory covers who may touch the data and who owns it. It maps to t
 
 ## Roles
 
-Each access role is one `Role` value with an `access` level and its first- and second-level approvers. Writing them as separate named values means a role can be referenced from more than one contract without being retyped. This is [`iam/role.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/iam/role.k):
+Each access role is one `Role` value with an `access` level and its first- and second-level approvers. Writing them as separate named values means a role can be referenced from more than one contract without being retyped. This is [`iam/role.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/iam/role.k):
 
 ```kcl
 import enkinex_odcs.iam.role
@@ -46,7 +46,7 @@ BQWriter = role.Role {
 
 ## Team members
 
-The people side lives in [`iam/member.k`](https://github.com/enkinex/enkinex-odcs/blob/main/examples/full/iam/member.k). Each is a `TeamMember`, and the fields carried differ per person — the first member records a `dateOut` and a `replacedByUsername`, the owner adds a `description`, and so on. The schema allows those optional fields without forcing them on every entry:
+The people side lives in [`iam/member.k`](https://github.com/enkinex/enkinex-odcs-tutorial/blob/main/iam/member.k). Each is a `TeamMember`, and the fields carried differ per person — the first member records a `dateOut` and a `replacedByUsername`, the owner adds a `description`, and so on. The schema allows those optional fields without forcing them on every entry:
 
 ```kcl
 import enkinex_odcs.iam.team
