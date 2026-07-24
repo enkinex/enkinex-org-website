@@ -1,0 +1,87 @@
+---
+title: Enkinex ODCS Library
+description: Governance as Code for ODCS Data Contract GitOps automation.
+sidebar_position: 1
+---
+
+import ResourceCards from '@site/src/components/ResourceCards';
+import VersionPill from '@site/src/components/VersionPill';
+
+# Enkinex ODCS Library
+
+<VersionPill value="v3.1.0"/>
+
+**Enkinex ODCS** is a library for writing data governance as code. It implements the
+[Open Data Contract Standard (ODCS)](https://github.com/bitol-io/open-data-contract-standard)
+as modular [KCL](https://www.kcl-lang.io/) schemas, bringing data contracts modularity, maintainability, type safety, constraints,
+and two-way validation.
+
+The library is composed of six modules — `common`, `catalog`, `contract`, `iam`, `quality`, `server` — plus the root
+`odcs.k`, which imports from every module and composes the final `DataContract` schema.
+
+<ResourceCards
+    items={[
+        {
+            title: 'Library Code',
+            meta: 'GitHub',
+            description:
+                'The KCL schema library — six modules plus the root DataContract, with the generated schema reference.',
+            href: 'https://github.com/enkinex/enkinex-odcs',
+            icon: 'package',
+            accent: 'teal',
+        },
+        {
+            title: 'Tutorial Code',
+            meta: 'GitHub',
+            description:
+                'The finished contract project built in the tutorial, ready to clone, export, and adapt.',
+            href: 'https://github.com/enkinex/enkinex-odcs-tutorial',
+            icon: 'brand-github',
+            accent: 'blue',
+        },
+        {
+            title: 'Tutorial',
+            meta: 'Docs',
+            description:
+                'Author a data contract as a typed KCL project step by step, then export it to YAML.',
+            href: '/docs/governance/odcs/tutorial/',
+            icon: 'book-2',
+            accent: 'gold',
+        },
+    ]}
+/>
+
+## Quick Start
+
+Everything below assumes the [KCL CLI](https://www.kcl-lang.io/docs/user_docs/getting-started/install)
+`>= 0.12.7` is on your `PATH` — the tutorial's
+[Installing KCL](/docs/governance/odcs/tutorial/installing-kcl) page walks
+through it.
+
+### Add Enkinex ODCS to your KCL project
+
+From the root of your KCL module, pull the library in as a Git dependency
+pinned to the release tag. It lands in `kcl.mod` as `enkinex_odcs`, which is
+the name you import from in your `.k` files.
+
+```bash
+kcl mod add --git https://github.com/enkinex/enkinex-odcs --tag 'v3.1.0'
+```
+
+### Clone the Enkinex ODCS library from GitHub
+
+To read the schemas, run the test fixtures, or contribute a change, clone the
+library itself:
+
+```bash
+git clone https://github.com/enkinex/enkinex-odcs.git
+```
+
+### Clone the Enkinex ODCS tutorial code from GitHub
+
+The complete tutorial project — the ODCS example contract written as modular
+KCL — is a separate repository:
+
+```bash
+git clone https://github.com/enkinex/enkinex-odcs-tutorial.git
+```

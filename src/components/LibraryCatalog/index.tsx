@@ -18,7 +18,7 @@ const GOLD = 'var(--ekx-gold)';
 const TEAL = 'var(--ekx-teal)';
 const BLUE = 'var(--ekx-blue)';
 
-type LibraryStatus = 'in-progress' | 'todo';
+type LibraryStatus = 'released' | 'in-progress' | 'todo';
 
 type Library = {
   name: string;
@@ -74,13 +74,13 @@ const GROUPS: Group[] = [
       {
         name: 'Enkinex ODCS',
         ref: 'CDL-01',
-        version: 'v3.1.0-draft',
+        version: 'v3.1.0',
         description:
           'A modular KCL implementation of the Open Data Contract Standard — author, type-check, and validate data contracts as governance-as-code.',
-        docs: '/docs/governance/odcs/overview',
+        docs: '/docs/governance/odcs/library',
         standard: 'https://github.com/bitol-io/open-data-contract-standard',
         github: 'https://github.com/enkinex/enkinex-odcs',
-        status: 'in-progress',
+        status: 'released',
       },
       {
         name: 'Enkinex ODPS',
@@ -157,6 +157,8 @@ function LibraryCard({lib, color}: {lib: Library; color: string}) {
         </div>
         {lib.status === 'todo' ? (
           <span className={styles.stampTodo}>#TODO</span>
+        ) : lib.status === 'released' ? (
+          <span className={styles.chipReleased}>Released</span>
         ) : (
           <span className={styles.chipProgress}>In progress</span>
         )}
