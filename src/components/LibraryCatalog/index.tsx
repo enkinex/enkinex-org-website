@@ -85,13 +85,13 @@ const GROUPS: Group[] = [
       {
         name: 'Enkinex ODPS',
         ref: 'CDL-02',
-        version: 'v1.0.0-draft',
+        version: 'v1.0.0',
         description:
           'A modular KCL implementation of the Open Data Product Standard — describe, type-check, and validate data products across their lifecycle.',
-        docs: '/docs/governance/odps/overview',
+        docs: '/docs/governance/odps/library',
         standard: 'https://github.com/bitol-io/open-data-product-standard',
         github: 'https://github.com/enkinex/enkinex-odps',
-        status: 'in-progress',
+        status: 'released',
       },
     ],
   },
