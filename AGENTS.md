@@ -31,5 +31,5 @@ devDependencies).
 - Branch `<type>/<short-slug>`, Conventional Commits subset,
   squash-merge.
 
-Shared enkinex workflow/git rules: `~/.config/opencode/AGENTS.md`
-(installed from enkinex-aiops).
+Shared enkinex workflow/git rules: [.opencode/shared/AGENTS.md](.opencode/shared/AGENTS.md)
+(synced from enkinex-aiops per ADR-0005 — do not edit here).

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // GENERATED FILE — do not edit in the target repo.
+  // Source: enkinex-aiops `opencode/opencode.jsonc`.
+  // Install/update: `just sync-opencode` in enkinex-aiops.
+  // Repo-specific overrides: `.opencode/opencode.jsonc` (loaded after this
+  // file, so it wins — verified against opencode 1.18.11 config loading).
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // ── Models (OpenRouter, 3-tier — see plan/opencode/loop.md §5) ──────────
+  // Default session model: mid tier. Frontier agents (plan/review) pin
+  // their own model in agent frontmatter. Re-pin only via PR per ADR-0002.
+  // NOTE: free-tier models rate-limit upstream without warning
+  // (observed 2026-08-03 with gemma-4-31b-it:free). nemotron nano and
+  // inclusionai/ling-3.0-flash:free responded reliably in smoke tests.
+  "model": "openrouter/moonshotai/kimi-k2",
+  "small_model": "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
+
+  // ── Instructions ────────────────────────────────────────────────────────
+  // Repo-root AGENTS.md loads automatically; add the synced shared rules
+  // and the derivative convention docs (repos with a .project/ lifecycle).
+  "instructions": [
+    ".opencode/shared/AGENTS.md",
+    ".project/conventions/*.md"
+  ],
+
+  // ── Permission posture (ADR-0001/0002, allow/ask/deny) ──────────────────
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*credentials*": "deny",
+      "*secret*": "deny"
+    },
+    "edit": "allow",
+    "write": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "webfetch": "allow",
+    "bash": {
+      "*": "ask",
+
+      // read-only git — zero prompts
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git show*": "allow",
+      "git branch*": "allow",
+      "git remote*": "allow",
+      "git fetch*": "allow",
+
+      // KCL toolchain — zero prompts
+      "kcl *": "allow",
+
+      // just recipes — zero prompts
+      "just *": "allow",
+
+      // read-only GitHub — zero prompts
+      "gh pr view*": "allow",
+      "gh pr list*": "allow",
+      "gh pr checks*": "allow",
+      "gh pr diff*": "allow",
+      "gh repo view*": "allow",
+      "gh auth status*": "allow",
+
+      // mutations — explicit human confirmation
+      "git add *": "ask",
+      "git commit*": "ask",
+      "git push*": "ask",
+      "git checkout*": "ask",
+      "gh pr create*": "ask",
+      "gh pr merge*": "ask",
+
+      // destructive git — always ask, never auto
+      "git push --force*": "ask",
+      "git reset --hard*": "ask",
+      "git rebase*": "ask",
+
+      // locked-out GitHub surfaces (ADR-0002: no Issues/Projects/Actions/Releases)
+      "gh issue*": "deny",
+      "gh project*": "deny",
+      "gh workflow*": "deny",
+      "gh run*": "deny",
+      "gh release*": "deny",
+      "gh secret*": "deny",
+      "gh variable*": "deny"
+    }
+  }
+}
