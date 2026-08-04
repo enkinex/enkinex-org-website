@@ -1,9 +1,9 @@
 # Enkinex — Shared Agent Instructions
 
-> GENERATED FILE — do not edit in the target repo. Source:
-> enkinex-aiops `opencode/shared/AGENTS.md`, installed to
-> `.opencode/shared/AGENTS.md` by `just sync-opencode` (ADR-0005).
-> Referenced from the shared `opencode.jsonc` `instructions` list.
+> Source of truth: enkinex-aiops, repo root `AGENTS.shared.md` (ADR-0005).
+> In SIBLING repos this is a GENERATED file — do not edit there; change the
+> source and run `just sync-opencode` in enkinex-aiops. Loaded via the
+> shared `opencode.jsonc` `instructions` list.
 
 Enkinex is an open-source **Semantic & Governance as Code** project: KCL
 libraries that implement open standards (ODCS, ODPS) and platform
@@ -25,12 +25,12 @@ configuration surfaces (Databricks Asset Bundles) as typed, modular code.
 
 ## Project lifecycle
 
-Repos with a `.project/` directory run discovery → backlog → plan → done.
-Plans live in `.project/plan/v*.md` (or `plan/` for the opencode migration);
-finished work moves to `done/`. ADRs record one-way decisions only —
-procedural workflows are defined as executable artefacts (agents, commands,
-loop tasks, plugin hooks), never as ADR prose (ADR-0004, executable
-governance).
+Repos plan at the root level: `plan/` (active plans; finished work moves
+to `plan/done/`), `discovery/` (analysis feeding plans), `architecture/`
+(ADRs). ADRs record one-way decisions only — procedural workflows are
+defined as executable artefacts (agents, commands, loop tasks, plugin
+hooks), never as ADR prose (ADR-0004, executable governance). Commit
+`Refs:` footers point at the delivered `plan/` section.
 
 ## Model tiers (OpenRouter)
 
