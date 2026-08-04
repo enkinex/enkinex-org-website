@@ -19,9 +19,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# LLM Context
-.context
-
 # wrangler files
 .wrangler
 .dev.vars*
