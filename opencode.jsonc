@@ -20,13 +20,16 @@
   "small_model": "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
 
   // ── Instructions ────────────────────────────────────────────────────────
-  // Repo-root AGENTS.md loads automatically; AGENTS.shared.md carries the
-  // synced enkinex-wide rules (source: enkinex-aiops).
-  "instructions": [
-    "AGENTS.shared.md"
-  ],
+  // No `instructions` list: the shared enkinex rules live inside the repo-root
+  // AGENTS.md as a generated block (source: enkinex-aiops AGENTS.shared.md,
+  // installed by `just sync-opencode`). AGENTS.md auto-loads here, is read
+  // natively by Codex, and is imported by Claude Code through CLAUDE.md — so
+  // one file governs all three harnesses instead of an opencode-only config
+  // indirection.
 
   // ── Permission posture (ADR-0002, allow/ask/deny) ───────────────────────
+  // MATCHING: last matching rule wins. Order matters — the catch-all comes
+  // first, specific allows next, and denies last so they cannot be overridden.
   "permission": {
     "read": {
       "*": "allow",
@@ -57,8 +60,18 @@
       // KCL toolchain — zero prompts
       "kcl *": "allow",
 
-      // just recipes — zero prompts
-      "just *": "allow",
+      // just recipes — enumerated, never `just *`. A Justfile recipe executes
+      // arbitrary shell from inside the repo, so a blanket allow would grant
+      // everything the rules below deny.
+      "just": "allow",
+      "just --list*": "allow",
+      "just init*": "allow",
+      "just fmt*": "allow",
+      "just lint*": "allow",
+      "just test*": "allow",
+      "just docs*": "allow",
+      "just check*": "allow",
+      "just verify-opencode*": "allow",
 
       // read-only GitHub — zero prompts
       "gh pr view*": "allow",
@@ -76,9 +89,12 @@
       "gh pr create*": "ask",
       "gh pr merge*": "ask",
 
-      // destructive git — always ask, never auto
-      "git push --force*": "ask",
-      "git reset --hard*": "ask",
+      // destructive git — denied outright. `AGENTS.md` says never force-push
+      // and never rewrite history; `ask` gave that rule no mechanical backing
+      // and collapses into an allow under headless `--auto`.
+      "git push --force*": "deny",
+      "git push -f*": "deny",
+      "git reset --hard*": "deny",
       "git rebase*": "ask",
 
       // locked-out GitHub surfaces (ADR-0002: no Issues/Projects/Actions/Releases)

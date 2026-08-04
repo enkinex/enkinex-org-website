@@ -9,7 +9,11 @@ permission:
     "git diff*": "allow"
     "git log*": "allow"
     "kcl *": "allow"
-    "just *": "allow"
+    "just fmt*": "allow"
+    "just lint*": "allow"
+    "just test*": "allow"
+    "just docs*": "allow"
+    "just check*": "allow"
 ---
 
 # build-kcl — KCL library implementation

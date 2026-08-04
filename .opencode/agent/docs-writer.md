@@ -8,7 +8,9 @@ permission:
     "git status*": "allow"
     "git diff*": "allow"
     "git log*": "allow"
-    "just *": "allow"
+    "just docs*": "allow"
+    "just lint*": "allow"
+    "just check*": "allow"
     "npm run typecheck*": "allow"
     "npm run build*": "allow"
 ---

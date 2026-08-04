@@ -21,7 +21,9 @@ permission:
     "gh pr diff*": "allow"
     "gh repo view*": "allow"
     "kcl *": "allow"
-    "just *": "allow"
+    "just lint*": "allow"
+    "just test*": "allow"
+    "just check*": "allow"
 ---
 
 # pr-review — review an enkinex PR
