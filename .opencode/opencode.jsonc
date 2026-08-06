@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // enkinex-org-website repo overlay (ADR-0005) — HAND-OWNED.
+  // Loaded after the repo-root opencode.jsonc, so it wins. Not generated:
+  // `just sync-opencode` never writes this file.
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // Playwright MCP is declared here rather than in the shared baseline
+  // because its tool catalog is large (~25 tools) and it is only useful for
+  // this repo's e2e work — ADR-0002 treats an ambient catalog as a per-session
+  // cost, so breadth of use decides placement.
+  //
+  // Requires `npx @playwright/mcp@latest` to resolve on first use.
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
+    }
+  },
+
+  // The site's gates are npm scripts, not `just` recipes.
+  "permission": {
+    "bash": {
+      "npm run typecheck*": "allow",
+      "npm run build*": "allow",
+      "npx playwright test*": "allow",
+      "npm run deploy*": "deny"
+    }
+  }
+}
