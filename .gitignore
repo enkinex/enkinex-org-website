@@ -8,6 +8,19 @@
 .docusaurus
 .cache-loader
 
+# Never stageable in a public repo — the pre-commit scan catches patterns,
+# this catches the file. Placed above the `!.env.example` negation below rather
+# than appended at the end, because gitignore gives the last matching pattern
+# the final word: after that line, `.env.*` would override the negation this
+# repository carries.
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+
 # Misc
 .DS_Store
 .env.local
